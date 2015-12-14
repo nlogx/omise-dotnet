@@ -1,9 +1,9 @@
-﻿using System.Net;
-using System.Threading.Tasks;
-using System.Diagnostics.Contracts;
+﻿using System.Threading.Tasks;
 
 namespace Omise {
     public interface IRequester {
+        Client Client { get; }
+
         Task<TResult> Request<TResult>(
             Endpoint endpoint,
             string method,

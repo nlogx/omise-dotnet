@@ -9,11 +9,13 @@ using System.Text;
 using Omise.Models;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Dynamic;
 
 namespace Omise {
     public class Requester : IRequester {
         readonly string userAgent;
 
+        public Client Client { get; private set; }
         public Credentials Credentials { get; private set; }
         public string APIVersion { get; set; }
 

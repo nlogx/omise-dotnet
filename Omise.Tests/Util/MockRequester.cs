@@ -6,10 +6,13 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.ServiceModel.Channels;
+using System.Dynamic;
 
 namespace Omise.Tests.Util {
     public class MockRequester : IRequester {
         readonly IList<RequestAttempt> requestAttempts;
+
+        public Client Client { get; set; }
 
         public object ResponseObject { get; set; }
         public IList<RequestAttempt> Requests {

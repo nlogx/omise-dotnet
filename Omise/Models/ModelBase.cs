@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace Omise.Models {
     public abstract class ModelBase {
         [JsonIgnore]
-        public IRequester Requester { get; internal set; }
+        public IRequester Requester { get; set; }
 
         [JsonProperty("object")]
         public string Object { get; set; }
