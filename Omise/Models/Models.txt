@@ -1,0 +1,104 @@
+﻿Account
+  Email string
+Balance
+  Available long
+  Total long
+  Currency string
+BankAccount bank_account
+  Brand string
+  Number string
+  LastDigits string last_digits
+  Name string
+Card
+  Country string
+  City string
+  Bank string
+  PostalCode string postal_code
+  Financing string
+  LastDigits string last_digits
+  Brand string
+  ExpirationMonth int expiration_month
+  ExpirationYear int expiration_year
+  Fingerprint string
+  Name string
+  SecurityCodeCheck bool security_code_check
+Charge
+  Status ChargeStatus
+  Amount long
+  Currency string
+  Description string
+  Capture bool
+  Authorized bool
+  Reversed bool
+  Paid bool
+  Transaction string
+  SourceOfFund SourceOfFunds source_of_fund
+  Card Card
+  Refunded long
+  Refunds ScopedList<Refund>
+  FailureCode string failure_code
+  FailureMessage string failure_message
+  Customer string customer
+  IP string
+  Dispute Dispute
+  ReturnURI string return_uri
+  AuthorizeURI string authorize_uri
+  Offsite OffsiteTypes
+Customer
+  DefaultCard string default_card
+  Email string
+  Description string
+  Cards ScopedList<Card>
+Dispute
+  Amount long
+  Currency string
+  Status DisputeStatus
+  Message string
+  Charge string
+Event
+  Key string
+  RawDataJson JRaw data
+Link
+  Amount long
+  Currency string
+  Used bool
+  Multiple bool
+  Title string
+  Description string
+  Charges ScopedList<Charge>
+  PaymentURI string payment_uri
+Recipient
+  Verified bool
+  Active bool
+  Name string
+  Email string
+  Description string
+  Type RecipientType
+  TaxID string
+  BankAccount BankAccount bank_account
+  FailureCode string failure_code
+Refund
+  Amount long
+  Currency string
+  Charge string
+  Transaction string
+Token
+  Used bool
+  Card Card
+Transaction
+  Amount long
+  Currency string
+  Type TransactionType
+  Source string
+  Transferable DateTime
+Transfer
+  Recipient string
+  BankAccount BankAccount
+  Sent bool
+  Paid bool
+  Fee long
+  Amount long
+  Currency string
+  FailureCode string failure_code
+  FailureMessage string failure_message
+  Transaction string
