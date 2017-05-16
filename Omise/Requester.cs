@@ -26,13 +26,9 @@ namespace Omise
 		{
 			if (creds == null) throw new ArgumentNullException(nameof(creds));
 
-			var metadata = new Dictionary<string, string>
-			{
-                { "Omise.Net", new AssemblyName(GetType().AssemblyQualifiedName).Version.ToString() },
-                { ".Net", new AssemblyName(typeof(object).AssemblyQualifiedName).Version.ToString() },
-			};
-
-			userAgent = metadata.Aggregate("", (acc, pair) => $"{acc} {pair.Key}/{pair.Value}").Trim();
+            userAgent = buildRequestMetadata()
+                .Aggregate("", (acc, pair) => $"{acc} {pair.Key}/{pair.Value}")
+                .Trim();
 
 			Credentials = creds;
 			APIVersion = apiVersion;
@@ -40,6 +36,18 @@ namespace Omise
 			Roundtripper = roundtripper ?? new DefaultRoundtripper();
 			Serializer = new Serializer();
 		}
+
+        IDictionary<string, string> buildRequestMetadata() {
+			var thisAsmName = GetType().GetTypeInfo().Assembly.GetName();
+			var clrAsmName = typeof(object).GetTypeInfo().Assembly.GetName();
+
+			return new Dictionary<string, string>
+			{
+				{ "Omise.Net", thisAsmName.Version.ToString() },
+				{ ".Net", clrAsmName.Version.ToString() },
+			};
+		}
+
 
 		public async Task<TResult> Request<TResult>(
 			Endpoint endpoint,
