@@ -20,7 +20,8 @@ namespace Omise.Tests.Util
 
         public MockRoundtripper(
             RequestInspector requestInspector = null,
-            ResponseInspector responseInspector = null)
+            ResponseInspector responseInspector = null
+        )
         {
             ResponseContent = "{}";
             ResponseContentType = "application/json";
@@ -36,10 +37,7 @@ namespace Omise.Tests.Util
 
         public Task<HttpResponseMessage> Roundtrip(HttpRequestMessage request)
         {
-            if (RequestInspector != null)
-            {
-                RequestInspector(request);
-            }
+            RequestInspector?.Invoke(request);
 
             RoundtripCount += 1;
             var response = new HttpResponseMessage(HttpStatusCode.OK);
@@ -49,10 +47,7 @@ namespace Omise.Tests.Util
                 ResponseContentType
             );
 
-            if (ResponseInspector != null)
-            {
-                ResponseInspector(response);
-            }
+            ResponseInspector?.Invoke(response);
 
             var source = new TaskCompletionSource<HttpResponseMessage>();
             source.SetResult(response);

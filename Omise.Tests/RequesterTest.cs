@@ -72,7 +72,7 @@ namespace Omise.Tests
         [Test, MaxTime(1000)]
         public async Task TestRequestWithPayload()
         {
-            var expectedPayload = "hello=Kitty&world=Collides";
+            var expectedPayload = "{\"hello\":\"Kitty\",\"world\":\"Collides\"}";
             var payload = new DummyPayload
             {
                 Hello = "Kitty",
@@ -83,10 +83,11 @@ namespace Omise.Tests
             {
                 var content = request.Content;
                 var contentType = content.Headers.GetValues("Content-Type").FirstOrDefault();
-                Assert.That(contentType, Is.EqualTo("application/x-www-form-urlencoded"));
+                Assert.AreEqual(contentType, "application/json; charset=utf-8");
 
+                var task = content.ReadAsStringAsync();
                 var encodedPayload = await content.ReadAsStringAsync();
-                Assert.That(encodedPayload, Is.EqualTo(expectedPayload));
+                Assert.AreEqual(expectedPayload, encodedPayload);
             });
 
             var requester = BuildRequester(roundtripper);

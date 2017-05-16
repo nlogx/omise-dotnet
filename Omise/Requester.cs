@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using Omise.Models;
+using System.IO;
+using System.Text;
 
 namespace Omise
 {
@@ -75,14 +77,18 @@ namespace Omise
             var request = Roundtripper.CreateRequest(method, endpoint.ApiPrefix + path);
             request.Headers.Add("Authorization", key.EncodeForAuthorizationHeader());
             request.Headers.Add("User-Agent", userAgent);
-            if (!string.IsNullOrEmpty(APIVersion))
-            {
-                request.Headers.Add("Omise-Version", APIVersion);
-            }
 
+            if (!string.IsNullOrEmpty(APIVersion)) request.Headers.Add("Omise-Version", APIVersion);
             if (payload != null)
             {
-                request.Content = Serializer.ExtractFormValues(payload);
+                using (var ms = new MemoryStream())
+                {
+                    Serializer.JsonSerialize(ms, payload);
+
+                    var buffer = ms.ToArray();
+                    var content = Encoding.UTF8.GetString(buffer, 0, buffer.Length);
+                    request.Content = new StringContent(content, Encoding.UTF8, "application/json");
+                }
             }
 
             // roundtrips the request
