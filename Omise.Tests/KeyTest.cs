@@ -8,10 +8,11 @@ namespace Omise.Tests
 		[Test]
 		public void TestStringImplicitAssignable()
 		{
-			var s = "pkey_string_test";
-			Key key = s;
+            var origKey = "pkey_string_test";
+			Key key = origKey;
+            string strKey = key;
 
-            Assert.AreEqual(s, key.ToString());
+            Assert.AreEqual(origKey, strKey);
 		}
 
 		[Test]
