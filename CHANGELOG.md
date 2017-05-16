@@ -1,10 +1,5 @@
 # CHANGE LOG
 
-# v2.5.0
-
-* **CHANGED** Now targets .NET Standard 1.2, making this libary no longer compatible with
-  .NET version 4.5.1 and below which are already obsoleted by Microsoft.
-
 # v2.4.2
 
 * Add newly available search scopes.
