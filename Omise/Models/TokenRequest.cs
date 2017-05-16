@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 
-namespace Omise.Models {
+namespace Omise.Models
+{
     // TODO: Test request serialization.
-    public class CreateTokenRequest : Request {
+    public class CreateTokenRequest : Request
+    {
         [JsonProperty("card[name]")]
         public string Name { get; set; }
         [JsonProperty("card[number]")]

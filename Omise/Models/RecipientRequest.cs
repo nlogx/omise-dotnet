@@ -1,13 +1,17 @@
 ﻿using Newtonsoft.Json;
 
-namespace Omise.Models {
-    public class CreateRecipientRequest : RecipientRequest {
+namespace Omise.Models
+{
+    public class CreateRecipientRequest : RecipientRequest
+    {
     }
 
-    public class UpdateRecipientRequest : RecipientRequest {
+    public class UpdateRecipientRequest : RecipientRequest
+    {
     }
 
-    public class RecipientRequest : Request {
+    public class RecipientRequest : Request
+    {
         public string Name { get; set; }
         public string Email { get; set; }
         public string Description { get; set; }

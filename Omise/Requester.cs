@@ -9,107 +9,108 @@ using Omise.Models;
 namespace Omise
 {
     public class Requester : IRequester
-	{
-		readonly string userAgent;
+    {
+        readonly string userAgent;
 
-		public Credentials Credentials { get; private set; }
-		public string APIVersion { get; set; }
+        public Credentials Credentials { get; private set; }
+        public string APIVersion { get; set; }
 
-		public IRoundtripper Roundtripper { get; private set; }
-		public Serializer Serializer { get; private set; }
+        public IRoundtripper Roundtripper { get; private set; }
+        public Serializer Serializer { get; private set; }
 
-		public Requester(
-			Credentials creds,
-			IRoundtripper roundtripper = null,
-			string apiVersion = null
-		)
-		{
-			if (creds == null) throw new ArgumentNullException(nameof(creds));
+        public Requester(
+            Credentials creds,
+            IRoundtripper roundtripper = null,
+            string apiVersion = null
+        )
+        {
+            if (creds == null) throw new ArgumentNullException(nameof(creds));
 
             userAgent = buildRequestMetadata()
                 .Aggregate("", (acc, pair) => $"{acc} {pair.Key}/{pair.Value}")
                 .Trim();
 
-			Credentials = creds;
-			APIVersion = apiVersion;
+            Credentials = creds;
+            APIVersion = apiVersion;
 
-			Roundtripper = roundtripper ?? new DefaultRoundtripper();
-			Serializer = new Serializer();
-		}
+            Roundtripper = roundtripper ?? new DefaultRoundtripper();
+            Serializer = new Serializer();
+        }
 
-        IDictionary<string, string> buildRequestMetadata() {
-			var thisAsmName = GetType().GetTypeInfo().Assembly.GetName();
-			var clrAsmName = typeof(object).GetTypeInfo().Assembly.GetName();
+        IDictionary<string, string> buildRequestMetadata()
+        {
+            var thisAsmName = GetType().GetTypeInfo().Assembly.GetName();
+            var clrAsmName = typeof(object).GetTypeInfo().Assembly.GetName();
 
-			return new Dictionary<string, string>
-			{
-				{ "Omise.Net", thisAsmName.Version.ToString() },
-				{ ".Net", clrAsmName.Version.ToString() },
-			};
-		}
+            return new Dictionary<string, string>
+            {
+                { "Omise.Net", thisAsmName.Version.ToString() },
+                { ".Net", clrAsmName.Version.ToString() },
+            };
+        }
 
 
-		public async Task<TResult> Request<TResult>(
-			Endpoint endpoint,
-			string method,
-			string path)
-			where TResult : class
-		{
-			return await Request<object, TResult>(endpoint, method, path, null);
-		}
+        public async Task<TResult> Request<TResult>(
+            Endpoint endpoint,
+            string method,
+            string path)
+            where TResult : class
+        {
+            return await Request<object, TResult>(endpoint, method, path, null);
+        }
 
-		public async Task<TResult> Request<TPayload, TResult>(
-			Endpoint endpoint,
-			string method,
-			string path,
-			TPayload payload)
-			where TPayload : class
-			where TResult : class
-		{
+        public async Task<TResult> Request<TPayload, TResult>(
+            Endpoint endpoint,
+            string method,
+            string path,
+            TPayload payload)
+            where TPayload : class
+            where TResult : class
+        {
 
-			var key = endpoint.KeySelector(Credentials);
+            var key = endpoint.KeySelector(Credentials);
 
-			// creates initial request
-			// TODO: Dispose request.
-			var request = Roundtripper.CreateRequest(method, endpoint.ApiPrefix + path);
-			request.Headers.Add("Authorization", key.EncodeForAuthorizationHeader());
-			request.Headers.Add("User-Agent", userAgent);
-			if (!string.IsNullOrEmpty(APIVersion))
-			{
-				request.Headers.Add("Omise-Version", APIVersion);
-			}
+            // creates initial request
+            // TODO: Dispose request.
+            var request = Roundtripper.CreateRequest(method, endpoint.ApiPrefix + path);
+            request.Headers.Add("Authorization", key.EncodeForAuthorizationHeader());
+            request.Headers.Add("User-Agent", userAgent);
+            if (!string.IsNullOrEmpty(APIVersion))
+            {
+                request.Headers.Add("Omise-Version", APIVersion);
+            }
 
-			if (payload != null)
-			{
-				request.Content = Serializer.ExtractFormValues(payload);
-			}
+            if (payload != null)
+            {
+                request.Content = Serializer.ExtractFormValues(payload);
+            }
 
-			// roundtrips the request
-			try
-			{
-				var response = await Roundtripper.Roundtrip(request);
-				var stream = await response.Content.ReadAsStreamAsync();
-				if (!response.IsSuccessStatusCode)
-				{
-					var error = Serializer.JsonDeserialize<ErrorResult>(stream);
-					error.HttpStatusCode = response.StatusCode;
-					throw new OmiseError(error, null);
-				}
+            // roundtrips the request
+            try
+            {
+                var response = await Roundtripper.Roundtrip(request);
+                var stream = await response.Content.ReadAsStreamAsync();
+                if (!response.IsSuccessStatusCode)
+                {
+                    var error = Serializer.JsonDeserialize<ErrorResult>(stream);
+                    error.HttpStatusCode = response.StatusCode;
+                    throw new OmiseError(error, null);
+                }
 
-				var result = Serializer.JsonDeserialize<TResult>(stream);
-				var model = result as ModelBase;
-				if (model != null)
-				{
-					model.Requester = this;
-				}
+                var result = Serializer.JsonDeserialize<TResult>(stream);
+                var model = result as ModelBase;
+                if (model != null)
+                {
+                    model.Requester = this;
+                }
 
-				return result;
+                return result;
 
-			}
-			catch (HttpRequestException e)
-			{
-				throw new OmiseException("Error while making HTTP request", e);
-			}
-		}
-	}
+            }
+            catch (HttpRequestException e)
+            {
+                throw new OmiseException("Error while making HTTP request", e);
+            }
+        }
+    }
 }

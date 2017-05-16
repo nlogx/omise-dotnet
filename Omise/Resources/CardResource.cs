@@ -1,14 +1,18 @@
 ﻿using Omise.Models;
 
-namespace Omise.Resources {
-    public class CardResourceShim {
+namespace Omise.Resources
+{
+    public class CardResourceShim
+    {
         readonly IRequester requester;
 
-        public CardResourceShim(IRequester requester) {
+        public CardResourceShim(IRequester requester)
+        {
             this.requester = requester;
         }
 
-        public CardResource ByCustomer(string customerId) {
+        public CardResource ByCustomer(string customerId)
+        {
             return new CardResource(requester, customerId);
         }
     }
@@ -17,12 +21,15 @@ namespace Omise.Resources {
     IListable<Card>,
     IListRetrievable<Card>,
     IUpdatable<Card, UpdateCardRequest>,
-    IDestroyable<Card> {
+    IDestroyable<Card>
+    {
         public CardResource(IRequester requester, string customerId)
-            : base(requester, Endpoint.Api, basePathFor(customerId)) {
+            : base(requester, Endpoint.Api, basePathFor(customerId))
+        {
         }
 
-        static string basePathFor(string customerId) {
+        static string basePathFor(string customerId)
+        {
             return $"/customers/{customerId}/cards";
         }
     }

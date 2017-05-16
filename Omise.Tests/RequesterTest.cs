@@ -10,9 +10,11 @@ using Omise.Tests.Util;
 namespace Omise.Tests
 {
     [TestFixture]
-    public class RequesterTest : OmiseTest {
+    public class RequesterTest : OmiseTest
+    {
         [Test]
-        public void TestCtor() {
+        public void TestCtor()
+        {
             Assert.That(() => new Requester(null), Throws.ArgumentNullException);
 
             var req = new Requester(DummyCredentials);
@@ -20,9 +22,11 @@ namespace Omise.Tests
         }
 
         [Test, MaxTime(1000)]
-        public async Task TestRequest() {
+        public async Task TestRequest()
+        {
             var expectedAuthHeader = DummyCredentials.SecretKey.EncodeForAuthorizationHeader();
-            var roundtripper = new MockRoundtripper((req) => {
+            var roundtripper = new MockRoundtripper((req) =>
+            {
                 var authHeader = req.Headers.GetValues("Authorization").FirstOrDefault();
                 Assert.That(authHeader, Is.EqualTo(expectedAuthHeader));
 
@@ -47,7 +51,8 @@ namespace Omise.Tests
         }
 
         [Test, MaxTime(1000)]
-        public async Task TestRequestWithResult() {
+        public async Task TestRequestWithResult()
+        {
             var roundtripper = new MockRoundtripper();
             roundtripper.ResponseContent = "{\"id\":\"zxcv\"}";
             roundtripper.ResponseContentType = "application/json";
@@ -65,14 +70,17 @@ namespace Omise.Tests
         }
 
         [Test, MaxTime(1000)]
-        public async Task TestRequestWithPayload() {
+        public async Task TestRequestWithPayload()
+        {
             var expectedPayload = "hello=Kitty&world=Collides";
-            var payload = new DummyPayload {
+            var payload = new DummyPayload
+            {
                 Hello = "Kitty",
                 World = "Collides",
             };
 
-            var roundtripper = new MockRoundtripper(async (request) => {
+            var roundtripper = new MockRoundtripper(async (request) =>
+            {
                 var content = request.Content;
                 var contentType = content.Headers.GetValues("Content-Type").FirstOrDefault();
                 Assert.That(contentType, Is.EqualTo("application/x-www-form-urlencoded"));
@@ -88,8 +96,10 @@ namespace Omise.Tests
         }
 
         [Test, MaxTime(1000)]
-        public void TestRequestWithErrorResponse() {
-            var roundtripper = new MockRoundtripper(responseInspector: (response) => {
+        public void TestRequestWithErrorResponse()
+        {
+            var roundtripper = new MockRoundtripper(responseInspector: (response) =>
+            {
                 response.StatusCode = HttpStatusCode.BadRequest;
                 response.Content = new StringContent("{\"code\":\"test_error\"}");
             });
@@ -105,16 +115,19 @@ namespace Omise.Tests
             Assert.That(exception.ToString(), Contains.Substring("test_error"));
         }
 
-        IRequester BuildRequester(IRoundtripper roundtripper) {
+        IRequester BuildRequester(IRoundtripper roundtripper)
+        {
             return new Requester(DummyCredentials, roundtripper);
         }
 
-        class DummyPayload {
+        class DummyPayload
+        {
             public string Hello { get; set; }
             public string World { get; set; }
         }
 
-        class DummyModel : ModelBase {
+        class DummyModel : ModelBase
+        {
         }
     }
 }

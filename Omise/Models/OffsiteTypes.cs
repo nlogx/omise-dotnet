@@ -1,7 +1,9 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Omise.Models {
-    public enum OffsiteTypes {
+namespace Omise.Models
+{
+    public enum OffsiteTypes
+    {
         [EnumMember(Value = null)]
         None,
         [EnumMember(Value = "internet_banking_scb")]

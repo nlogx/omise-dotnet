@@ -3,43 +3,51 @@ using NUnit.Framework;
 using Omise.Models;
 using Omise.Resources;
 
-namespace Omise.Tests.Resources {
+namespace Omise.Tests.Resources
+{
     [TestFixture]
-    public class RecipientResourceTest : ResourceTest<RecipientResource> {
+    public class RecipientResourceTest : ResourceTest<RecipientResource>
+    {
         const string RecipientId = "recp_test_50894vc13y8z4v51iuc";
 
         [Test]
-        public async Task TestGetList() {
+        public async Task TestGetList()
+        {
             await Resource.GetList();
             AssertRequest("GET", "https://api.omise.co/recipients");
         }
 
         [Test]
-        public async Task TestGet() {
+        public async Task TestGet()
+        {
             await Resource.Get(RecipientId);
             AssertRequest("GET", "https://api.omise.co/recipients/{0}", RecipientId);
         }
 
         [Test]
-        public async Task TestCreate() {
+        public async Task TestCreate()
+        {
             await Resource.Create(BuildCreateRequest());
             AssertRequest("POST", "https://api.omise.co/recipients");
         }
 
         [Test]
-        public async Task TestUpdate() {
+        public async Task TestUpdate()
+        {
             await Resource.Update(RecipientId, BuildUpdateRequest());
             AssertRequest("PATCH", "https://api.omise.co/recipients/{0}", RecipientId);
         }
 
         [Test]
-        public async Task TestDestroy() {
+        public async Task TestDestroy()
+        {
             await Resource.Destroy(RecipientId);
             AssertRequest("DELETE", "https://api.omise.co/recipients/{0}", RecipientId);
         }
 
         [Test]
-        public void TestCreateRecipientRequest() {
+        public void TestCreateRecipientRequest()
+        {
             AssertSerializedRequest(BuildCreateRequest(),
                 "name=John+Doe&" +
                 "email=john.doe%40example.com&" +
@@ -53,7 +61,8 @@ namespace Omise.Tests.Resources {
         }
 
         [Test]
-        public void TestUpdateRecipientRequest() {
+        public void TestUpdateRecipientRequest()
+        {
             AssertSerializedRequest(BuildUpdateRequest(),
                 "name=John+Doe&" +
                 "email=john.doe%40example.com&" +
@@ -67,7 +76,8 @@ namespace Omise.Tests.Resources {
         }
 
         [Test]
-        public async Task TestFixturesGetList() {
+        public async Task TestFixturesGetList()
+        {
             var list = await Fixtures.GetList();
             Assert.AreEqual(1, list.Count);
 
@@ -77,41 +87,48 @@ namespace Omise.Tests.Resources {
         }
 
         [Test]
-        public async Task TestFixturesGet() {
+        public async Task TestFixturesGet()
+        {
             var recipient = await Fixtures.Get(RecipientId);
             Assert.AreEqual(RecipientId, recipient.Id);
             Assert.AreEqual("6789", recipient.BankAccount.LastDigits);
         }
 
         [Test]
-        public async Task TestFixturesCreate() {
+        public async Task TestFixturesCreate()
+        {
             var recipient = await Fixtures.Create(new CreateRecipientRequest());
             Assert.AreEqual(RecipientId, recipient.Id);
             Assert.AreEqual("6789", recipient.BankAccount.LastDigits);
         }
 
         [Test]
-        public async Task TestFixturesUpdate() {
+        public async Task TestFixturesUpdate()
+        {
             var recipient = await Fixtures.Update(RecipientId, new UpdateRecipientRequest());
             Assert.AreEqual(RecipientId, recipient.Id);
             Assert.AreEqual("john@doe.com", recipient.Email);
         }
 
         [Test]
-        public async Task TestFixturesDestroy() {
+        public async Task TestFixturesDestroy()
+        {
             var recipient = await Fixtures.Destroy(RecipientId);
             Assert.AreEqual(RecipientId, recipient.Id);
             Assert.IsTrue(recipient.Deleted);
         }
 
-        protected CreateRecipientRequest BuildCreateRequest() {
-            return new CreateRecipientRequest {
+        protected CreateRecipientRequest BuildCreateRequest()
+        {
+            return new CreateRecipientRequest
+            {
                 Name = "John Doe",
                 Email = "john.doe@example.com",
                 Description = "Waaat?",
                 Type = RecipientType.Corporation,
                 TaxID = "123",
-                BankAccount = new BankAccountRequest {
+                BankAccount = new BankAccountRequest
+                {
                     Brand = "KBank",
                     Name = "Secret Stash",
                     Number = "1234-567-89-0",
@@ -119,14 +136,17 @@ namespace Omise.Tests.Resources {
             };
         }
 
-        protected UpdateRecipientRequest BuildUpdateRequest() {
-            return new UpdateRecipientRequest {
+        protected UpdateRecipientRequest BuildUpdateRequest()
+        {
+            return new UpdateRecipientRequest
+            {
                 Name = "John Doe",
                 Email = "john.doe@example.com",
                 Description = "I'm up-to-date",
                 Type = RecipientType.Individual,
                 TaxID = "456",
-                BankAccount = new BankAccountRequest {
+                BankAccount = new BankAccountRequest
+                {
                     Brand = "BBL",
                     Name = "Accounts",
                     Number = "987654321",
@@ -134,7 +154,8 @@ namespace Omise.Tests.Resources {
             };
         }
 
-        protected override RecipientResource BuildResource(IRequester requester) {
+        protected override RecipientResource BuildResource(IRequester requester)
+        {
             return new RecipientResource(requester);
         }
     }

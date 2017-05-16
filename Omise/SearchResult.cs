@@ -2,9 +2,11 @@
 using Newtonsoft.Json;
 using Omise.Models;
 
-namespace Omise {
+namespace Omise
+{
     [JsonObject]
-    public class SearchResult<T> : ListBase<T> {
+    public class SearchResult<T> : ListBase<T>
+    {
         [JsonProperty("scope")]
         public SearchScope Scope { get; set; }
 

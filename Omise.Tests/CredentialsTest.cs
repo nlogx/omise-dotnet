@@ -1,11 +1,14 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace Omise.Tests {
+namespace Omise.Tests
+{
     [TestFixture]
-    public class CredentialsTest : OmiseTest {
+    public class CredentialsTest : OmiseTest
+    {
         [Test]
-        public void TestCtor() {
+        public void TestCtor()
+        {
             var pkey = "pkey_test_123";
             var skey = "skey_test_123";
 

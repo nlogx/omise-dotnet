@@ -1,12 +1,15 @@
 ﻿using Omise.Models;
 
-namespace Omise.Resources {
+namespace Omise.Resources
+{
     public class LinkResource : BaseResource<Link>,
     IListable<Link>,
     IListRetrievable<Link>,
-    ICreatable<Link, CreateLinkRequest> {
+    ICreatable<Link, CreateLinkRequest>
+    {
         public LinkResource(IRequester requester)
-            : base(requester, Endpoint.Api, "/links") {
+            : base(requester, Endpoint.Api, "/links")
+        {
         }
     }
 }

@@ -9,7 +9,8 @@ using Omise.Tests.Util;
 namespace Omise.Tests
 {
     [TestFixture]
-    public class SerializerTest : OmiseTest {
+    public class SerializerTest : OmiseTest
+    {
         const string DummyJson =
             @"{""james"":""Howlett"",""scott"":""Summers"",""johny"":""Mnemonic""," +
             @"""with"":""SPACES SPACES"",""created"":""9999-12-31T23:59:59.9999999""," +
@@ -26,15 +27,18 @@ namespace Omise.Tests
         SerializerTestDummy Dummy { get; set; }
 
         [SetUp]
-        public void Setup() {
+        public void Setup()
+        {
             Serializer = new Serializer();
             Dummy = new SerializerTestDummy();
         }
 
         [Test]
-        public void TestJsonSerialize() {
+        public void TestJsonSerialize()
+        {
             string result;
-            using (var stream = new StringMemoryStream()) {
+            using (var stream = new StringMemoryStream())
+            {
                 Serializer.JsonSerialize(stream, Dummy);
                 result = stream.ToDecodedString();
             }
@@ -43,11 +47,13 @@ namespace Omise.Tests
         }
 
         [Test]
-        public void TestJsonDeserialize() {
+        public void TestJsonDeserialize()
+        {
             var json = DummyJson;
 
             SerializerTestDummy result;
-            using (var stream = new StringMemoryStream(json)) {
+            using (var stream = new StringMemoryStream(json))
+            {
                 result = Serializer.JsonDeserialize<SerializerTestDummy>(stream);
             }
 
@@ -57,21 +63,24 @@ namespace Omise.Tests
         }
 
         [Test]
-        public void TestJsonPopulate() {
+        public void TestJsonPopulate()
+        {
             Serializer.JsonPopulate(DummyJson, Dummy);
             Assert.AreEqual("Howlett", Dummy.James);
             Assert.AreEqual("Summers", Dummy.Scott);
         }
 
         [Test]
-        public async Task TestExtractFormValues() {
+        public async Task TestExtractFormValues()
+        {
             var content = Serializer.ExtractFormValues(Dummy);
             var result = await content.ReadAsStringAsync();
             Assert.AreEqual(DummyUrlEncoded, result);
         }
     }
 
-    class SerializerTestDummy {
+    class SerializerTestDummy
+    {
         public string James { get; set; }
         public string Scott { get; set; }
 
@@ -87,20 +96,23 @@ namespace Omise.Tests
         public DummyEnum NullEnum { get; set; }
         public NestedKlass Nested { get; set; }
 
-        public enum DummyEnum {
-            [EnumMember(Value=null)]
+        public enum DummyEnum
+        {
+            [EnumMember(Value = null)]
             None,
             Once,
-            [EnumMember(Value="twth")]
+            [EnumMember(Value = "twth")]
             TwiceThrice,
         }
 
-        public class NestedKlass {
+        public class NestedKlass
+        {
             public string Field { get; set; }
             public IDictionary<string, string> Filters { get; set; }
         }
 
-        public SerializerTestDummy() {
+        public SerializerTestDummy()
+        {
             James = "Howlett";
             Scott = "Summers";
             With = "SPACES SPACES";
@@ -111,7 +123,8 @@ namespace Omise.Tests
             Enumer = DummyEnum.TwiceThrice;
             Enumer2 = DummyEnum.Once;
             NullEnum = DummyEnum.None;
-            Nested = new NestedKlass {
+            Nested = new NestedKlass
+            {
                 Field = "inner",
                 Filters = new Dictionary<string, string> {
                     { "dictionary", "should works" }

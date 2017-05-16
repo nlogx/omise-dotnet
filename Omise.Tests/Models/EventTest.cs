@@ -3,10 +3,13 @@ using System.Text;
 using NUnit.Framework;
 using Omise.Models;
 
-namespace Omise.Tests.Models {
-    public class EventTest {
+namespace Omise.Tests.Models
+{
+    public class EventTest
+    {
         [Test]
-        public void TestJsonDeserialize() {
+        public void TestJsonDeserialize()
+        {
             const string JSON = @"
                 { ""key"": ""customer.update""
                 , ""data"":
@@ -19,7 +22,8 @@ namespace Omise.Tests.Models {
             Event result;
 
             var bytes = Encoding.UTF8.GetBytes(JSON);
-            using (var stream = new MemoryStream(bytes)) {
+            using (var stream = new MemoryStream(bytes))
+            {
                 result = new Serializer().JsonDeserialize<Event>(stream);
             }
 

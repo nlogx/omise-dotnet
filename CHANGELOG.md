@@ -1,5 +1,10 @@
 # CHANGE LOG
 
+# v2.5.0
+
+* **CHANGED:** Library now targets .NET Standard 1.2 instead of the PCL.
+* **CHANGED:** Library is now built with Visual Studio for Mac 2017
+
 # v2.4.2
 
 * Add newly available search scopes.

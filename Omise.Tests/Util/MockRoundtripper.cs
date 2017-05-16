@@ -3,11 +3,13 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Omise.Tests.Util {
+namespace Omise.Tests.Util
+{
     public delegate void RequestInspector(HttpRequestMessage request);
     public delegate void ResponseInspector(HttpResponseMessage response);
 
-    public sealed class MockRoundtripper : IRoundtripper {
+    public sealed class MockRoundtripper : IRoundtripper
+    {
         public string ResponseContentType { get; set; }
         public string ResponseContent { get; set; }
 
@@ -18,7 +20,8 @@ namespace Omise.Tests.Util {
 
         public MockRoundtripper(
             RequestInspector requestInspector = null,
-            ResponseInspector responseInspector = null) {
+            ResponseInspector responseInspector = null)
+        {
             ResponseContent = "{}";
             ResponseContentType = "application/json";
             RequestInspector = requestInspector;
@@ -26,12 +29,15 @@ namespace Omise.Tests.Util {
             RoundtripCount = 0;
         }
 
-        public HttpRequestMessage CreateRequest(string method, string uri) {
+        public HttpRequestMessage CreateRequest(string method, string uri)
+        {
             return new HttpRequestMessage(new HttpMethod(method), uri);
         }
 
-        public Task<HttpResponseMessage> Roundtrip(HttpRequestMessage request) {
-            if (RequestInspector != null) {
+        public Task<HttpResponseMessage> Roundtrip(HttpRequestMessage request)
+        {
+            if (RequestInspector != null)
+            {
                 RequestInspector(request);
             }
 
@@ -43,7 +49,8 @@ namespace Omise.Tests.Util {
                 ResponseContentType
             );
 
-            if (ResponseInspector != null) {
+            if (ResponseInspector != null)
+            {
                 ResponseInspector(response);
             }
 

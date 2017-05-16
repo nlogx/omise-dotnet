@@ -1,7 +1,9 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Omise.Models {
-    public enum SearchScope {
+namespace Omise.Models
+{
+    public enum SearchScope
+    {
         [EnumMember(Value = null)]
         Unspecified,
         [EnumMember(Value = "dispute")]

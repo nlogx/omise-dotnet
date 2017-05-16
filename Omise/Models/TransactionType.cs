@@ -1,5 +1,7 @@
-﻿namespace Omise.Models {
-    public enum TransactionType {
+﻿namespace Omise.Models
+{
+    public enum TransactionType
+    {
         Credit,
         Debit
     }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.IO;
 
-namespace Omise.Tests.Util {
+namespace Omise.Tests.Util
+{
     // Records IRequester.Request calls
-    public class RequestAttempt {
+    public class RequestAttempt
+    {
         public Endpoint Endpoint { get; internal set; }
         public string Method { get; internal set; }
         public string Path { get; internal set; }
@@ -15,7 +17,8 @@ namespace Omise.Tests.Util {
         public Type ResultType { get; internal set; }
         public object Result { get; internal set; }
 
-        public string Uri {
+        public string Uri
+        {
             get { return Endpoint.ApiPrefix + Path; }
         }
     }

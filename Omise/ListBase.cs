@@ -5,9 +5,11 @@ using System.Linq;
 using Newtonsoft.Json;
 using Omise.Models;
 
-namespace Omise {
+namespace Omise
+{
     [JsonObject]
-    public abstract class ListBase<T> : IEnumerable<T> {
+    public abstract class ListBase<T> : IEnumerable<T>
+    {
         IList<T> data;
 
         [JsonProperty("object")]
@@ -20,12 +22,14 @@ namespace Omise {
         public Ordering order { get; set; }
 
         [JsonProperty("data")]
-        public IList<T> Data {
+        public IList<T> Data
+        {
             get { return data; }
             set { data = new ReadOnlyCollection<T>(value); }
         }
 
-        public T this[int indexer] {
+        public T this[int indexer]
+        {
             get { return data[indexer]; }
             set { data[indexer] = value; }
         }

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
-using System.Text;
-using Newtonsoft.Json.Serialization;
 using NUnit.Framework;
 using Omise.Models;
 
-namespace Omise.Tests.Models {
+namespace Omise.Tests.Models
+{
     [TestFixture]
-    public class JsonSerializationTest : OmiseTest {
+    public class JsonSerializationTest : OmiseTest
+    {
         static readonly Type[] modelTypes = {
             typeof(Account),
             typeof(Balance),
@@ -26,15 +25,18 @@ namespace Omise.Tests.Models {
         };
 
         [Test]
-        public void TestJsonSerialize() {
+        public void TestJsonSerialize()
+        {
             var serializer = new Serializer();
-            foreach (var type in modelTypes) {
+            foreach (var type in modelTypes)
+            {
                 var method = serializer
                     .GetType()
                     .GetMethod("JsonSerialize")
                     .MakeGenericMethod(type);
 
-                using (var ms = new MemoryStream()) {
+                using (var ms = new MemoryStream())
+                {
                     var instance = Activator.CreateInstance(type);
                     method.Invoke(serializer, new object[] { ms, instance });
                 }
@@ -42,23 +44,27 @@ namespace Omise.Tests.Models {
         }
 
         [Test]
-        public void TestJsonDeserialize() {
+        public void TestJsonDeserialize()
+        {
             var serializer = new Serializer();
-            foreach (var type in modelTypes) {
+            foreach (var type in modelTypes)
+            {
                 var method = serializer
                     .GetType()
                     .GetMethod("JsonDeserialize")
                     .MakeGenericMethod(type);
 
                 var filename = $"objects/{ModelTypes.NameFor(type)}_object.json";
-                if (!TestData.Files.ContainsKey(filename)) {
+                if (!TestData.Files.ContainsKey(filename))
+                {
                     throw new FileNotFoundException(filename);
                 }
 
                 var filedata = TestData.Files[filename];
 
                 object result;
-                using (var ms = new MemoryStream(filedata)) {
+                using (var ms = new MemoryStream(filedata))
+                {
                     result = method.Invoke(serializer, new object[] { ms });
                 }
 

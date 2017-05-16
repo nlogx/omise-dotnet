@@ -1,8 +1,10 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Omise.Models {
-    public abstract class ModelBase {
+namespace Omise.Models
+{
+    public abstract class ModelBase
+    {
         [JsonIgnore]
         public IRequester Requester { get; internal set; }
 
@@ -26,7 +28,8 @@ namespace Omise.Models {
 
         // TODO: Provide Task<T> Reload() functionality.
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             if (obj == null) return false;
             var another = (ModelBase)obj;
 
@@ -38,8 +41,10 @@ namespace Omise.Models {
             this.Deleted == another.Deleted;
         }
 
-        public override int GetHashCode() {
-            unchecked {
+        public override int GetHashCode()
+        {
+            unchecked
+            {
                 int hash = 17;
                 hash = hash * 23 + Object.GetHashCode();
                 hash = hash * 23 + Id.GetHashCode();

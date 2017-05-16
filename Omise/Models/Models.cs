@@ -6,12 +6,15 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Omise.Models {
-    public partial class Account : ModelBase {
+namespace Omise.Models
+{
+    public partial class Account : ModelBase
+    {
         [JsonProperty("email")]
         public string Email { get; set; }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             if (obj == null) return false;
             var another = (Account)obj;
 
@@ -20,17 +23,20 @@ namespace Omise.Models {
                 true;
         }
 
-        public override int GetHashCode() {
-            unchecked {
+        public override int GetHashCode()
+        {
+            unchecked
+            {
                 int hash = 17;
-                hash = hash*23 + Email.GetHashCode();
+                hash = hash * 23 + Email.GetHashCode();
 
                 return hash;
             }
         }
     }
 
-    public partial class Balance : ModelBase {
+    public partial class Balance : ModelBase
+    {
         [JsonProperty("available")]
         public long Available { get; set; }
         [JsonProperty("total")]
@@ -38,7 +44,8 @@ namespace Omise.Models {
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             if (obj == null) return false;
             var another = (Balance)obj;
 
@@ -49,19 +56,22 @@ namespace Omise.Models {
                 true;
         }
 
-        public override int GetHashCode() {
-            unchecked {
+        public override int GetHashCode()
+        {
+            unchecked
+            {
                 int hash = 17;
-                hash = hash*23 + Available.GetHashCode();
-                hash = hash*23 + Total.GetHashCode();
-                hash = hash*23 + Currency.GetHashCode();
+                hash = hash * 23 + Available.GetHashCode();
+                hash = hash * 23 + Total.GetHashCode();
+                hash = hash * 23 + Currency.GetHashCode();
 
                 return hash;
             }
         }
     }
 
-    public partial class BankAccount : ModelBase {
+    public partial class BankAccount : ModelBase
+    {
         [JsonProperty("brand")]
         public string Brand { get; set; }
         [JsonProperty("number")]
@@ -71,7 +81,8 @@ namespace Omise.Models {
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             if (obj == null) return false;
             var another = (BankAccount)obj;
 
@@ -83,20 +94,23 @@ namespace Omise.Models {
                 true;
         }
 
-        public override int GetHashCode() {
-            unchecked {
+        public override int GetHashCode()
+        {
+            unchecked
+            {
                 int hash = 17;
-                hash = hash*23 + Brand.GetHashCode();
-                hash = hash*23 + Number.GetHashCode();
-                hash = hash*23 + LastDigits.GetHashCode();
-                hash = hash*23 + Name.GetHashCode();
+                hash = hash * 23 + Brand.GetHashCode();
+                hash = hash * 23 + Number.GetHashCode();
+                hash = hash * 23 + LastDigits.GetHashCode();
+                hash = hash * 23 + Name.GetHashCode();
 
                 return hash;
             }
         }
     }
 
-    public partial class Card : ModelBase {
+    public partial class Card : ModelBase
+    {
         [JsonProperty("country")]
         public string Country { get; set; }
         [JsonProperty("city")]
@@ -122,7 +136,8 @@ namespace Omise.Models {
         [JsonProperty("security_code_check")]
         public bool SecurityCodeCheck { get; set; }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             if (obj == null) return false;
             var another = (Card)obj;
 
@@ -142,28 +157,31 @@ namespace Omise.Models {
                 true;
         }
 
-        public override int GetHashCode() {
-            unchecked {
+        public override int GetHashCode()
+        {
+            unchecked
+            {
                 int hash = 17;
-                hash = hash*23 + Country.GetHashCode();
-                hash = hash*23 + City.GetHashCode();
-                hash = hash*23 + Bank.GetHashCode();
-                hash = hash*23 + PostalCode.GetHashCode();
-                hash = hash*23 + Financing.GetHashCode();
-                hash = hash*23 + LastDigits.GetHashCode();
-                hash = hash*23 + Brand.GetHashCode();
-                hash = hash*23 + ExpirationMonth.GetHashCode();
-                hash = hash*23 + ExpirationYear.GetHashCode();
-                hash = hash*23 + Fingerprint.GetHashCode();
-                hash = hash*23 + Name.GetHashCode();
-                hash = hash*23 + SecurityCodeCheck.GetHashCode();
+                hash = hash * 23 + Country.GetHashCode();
+                hash = hash * 23 + City.GetHashCode();
+                hash = hash * 23 + Bank.GetHashCode();
+                hash = hash * 23 + PostalCode.GetHashCode();
+                hash = hash * 23 + Financing.GetHashCode();
+                hash = hash * 23 + LastDigits.GetHashCode();
+                hash = hash * 23 + Brand.GetHashCode();
+                hash = hash * 23 + ExpirationMonth.GetHashCode();
+                hash = hash * 23 + ExpirationYear.GetHashCode();
+                hash = hash * 23 + Fingerprint.GetHashCode();
+                hash = hash * 23 + Name.GetHashCode();
+                hash = hash * 23 + SecurityCodeCheck.GetHashCode();
 
                 return hash;
             }
         }
     }
 
-    public partial class Charge : ModelBase {
+    public partial class Charge : ModelBase
+    {
         [JsonProperty("status")]
         public ChargeStatus Status { get; set; }
         [JsonProperty("amount")]
@@ -203,7 +221,8 @@ namespace Omise.Models {
         [JsonProperty("authorize_uri")]
         public string AuthorizeURI { get; set; }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             if (obj == null) return false;
             var another = (Charge)obj;
 
@@ -230,35 +249,38 @@ namespace Omise.Models {
                 true;
         }
 
-        public override int GetHashCode() {
-            unchecked {
+        public override int GetHashCode()
+        {
+            unchecked
+            {
                 int hash = 17;
-                hash = hash*23 + Status.GetHashCode();
-                hash = hash*23 + Amount.GetHashCode();
-                hash = hash*23 + Currency.GetHashCode();
-                hash = hash*23 + Description.GetHashCode();
-                hash = hash*23 + Capture.GetHashCode();
-                hash = hash*23 + Authorized.GetHashCode();
-                hash = hash*23 + Reversed.GetHashCode();
-                hash = hash*23 + Paid.GetHashCode();
-                hash = hash*23 + Transaction.GetHashCode();
-                hash = hash*23 + Card.GetHashCode();
-                hash = hash*23 + Refunded.GetHashCode();
-                hash = hash*23 + Refunds.GetHashCode();
-                hash = hash*23 + FailureCode.GetHashCode();
-                hash = hash*23 + FailureMessage.GetHashCode();
-                hash = hash*23 + Customer.GetHashCode();
-                hash = hash*23 + IP.GetHashCode();
-                hash = hash*23 + Dispute.GetHashCode();
-                hash = hash*23 + ReturnURI.GetHashCode();
-                hash = hash*23 + AuthorizeURI.GetHashCode();
+                hash = hash * 23 + Status.GetHashCode();
+                hash = hash * 23 + Amount.GetHashCode();
+                hash = hash * 23 + Currency.GetHashCode();
+                hash = hash * 23 + Description.GetHashCode();
+                hash = hash * 23 + Capture.GetHashCode();
+                hash = hash * 23 + Authorized.GetHashCode();
+                hash = hash * 23 + Reversed.GetHashCode();
+                hash = hash * 23 + Paid.GetHashCode();
+                hash = hash * 23 + Transaction.GetHashCode();
+                hash = hash * 23 + Card.GetHashCode();
+                hash = hash * 23 + Refunded.GetHashCode();
+                hash = hash * 23 + Refunds.GetHashCode();
+                hash = hash * 23 + FailureCode.GetHashCode();
+                hash = hash * 23 + FailureMessage.GetHashCode();
+                hash = hash * 23 + Customer.GetHashCode();
+                hash = hash * 23 + IP.GetHashCode();
+                hash = hash * 23 + Dispute.GetHashCode();
+                hash = hash * 23 + ReturnURI.GetHashCode();
+                hash = hash * 23 + AuthorizeURI.GetHashCode();
 
                 return hash;
             }
         }
     }
 
-    public partial class Customer : ModelBase {
+    public partial class Customer : ModelBase
+    {
         [JsonProperty("default_card")]
         public string DefaultCard { get; set; }
         [JsonProperty("email")]
@@ -268,7 +290,8 @@ namespace Omise.Models {
         [JsonProperty("cards")]
         public ScopedList<Card> Cards { get; set; }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             if (obj == null) return false;
             var another = (Customer)obj;
 
@@ -280,20 +303,23 @@ namespace Omise.Models {
                 true;
         }
 
-        public override int GetHashCode() {
-            unchecked {
+        public override int GetHashCode()
+        {
+            unchecked
+            {
                 int hash = 17;
-                hash = hash*23 + DefaultCard.GetHashCode();
-                hash = hash*23 + Email.GetHashCode();
-                hash = hash*23 + Description.GetHashCode();
-                hash = hash*23 + Cards.GetHashCode();
+                hash = hash * 23 + DefaultCard.GetHashCode();
+                hash = hash * 23 + Email.GetHashCode();
+                hash = hash * 23 + Description.GetHashCode();
+                hash = hash * 23 + Cards.GetHashCode();
 
                 return hash;
             }
         }
     }
 
-    public partial class Dispute : ModelBase {
+    public partial class Dispute : ModelBase
+    {
         [JsonProperty("amount")]
         public long Amount { get; set; }
         [JsonProperty("currency")]
@@ -305,7 +331,8 @@ namespace Omise.Models {
         [JsonProperty("charge")]
         public string Charge { get; set; }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             if (obj == null) return false;
             var another = (Dispute)obj;
 
@@ -318,27 +345,31 @@ namespace Omise.Models {
                 true;
         }
 
-        public override int GetHashCode() {
-            unchecked {
+        public override int GetHashCode()
+        {
+            unchecked
+            {
                 int hash = 17;
-                hash = hash*23 + Amount.GetHashCode();
-                hash = hash*23 + Currency.GetHashCode();
-                hash = hash*23 + Status.GetHashCode();
-                hash = hash*23 + Message.GetHashCode();
-                hash = hash*23 + Charge.GetHashCode();
+                hash = hash * 23 + Amount.GetHashCode();
+                hash = hash * 23 + Currency.GetHashCode();
+                hash = hash * 23 + Status.GetHashCode();
+                hash = hash * 23 + Message.GetHashCode();
+                hash = hash * 23 + Charge.GetHashCode();
 
                 return hash;
             }
         }
     }
 
-    public partial class Event : ModelBase {
+    public partial class Event : ModelBase
+    {
         [JsonProperty("key")]
         public string Key { get; set; }
         [JsonProperty("data")]
         public JRaw RawDataJson { get; set; }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             if (obj == null) return false;
             var another = (Event)obj;
 
@@ -348,18 +379,21 @@ namespace Omise.Models {
                 true;
         }
 
-        public override int GetHashCode() {
-            unchecked {
+        public override int GetHashCode()
+        {
+            unchecked
+            {
                 int hash = 17;
-                hash = hash*23 + Key.GetHashCode();
-                hash = hash*23 + RawDataJson.GetHashCode();
+                hash = hash * 23 + Key.GetHashCode();
+                hash = hash * 23 + RawDataJson.GetHashCode();
 
                 return hash;
             }
         }
     }
 
-    public partial class Link : ModelBase {
+    public partial class Link : ModelBase
+    {
         [JsonProperty("amount")]
         public long Amount { get; set; }
         [JsonProperty("currency")]
@@ -377,7 +411,8 @@ namespace Omise.Models {
         [JsonProperty("payment_uri")]
         public string PaymentURI { get; set; }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             if (obj == null) return false;
             var another = (Link)obj;
 
@@ -393,24 +428,27 @@ namespace Omise.Models {
                 true;
         }
 
-        public override int GetHashCode() {
-            unchecked {
+        public override int GetHashCode()
+        {
+            unchecked
+            {
                 int hash = 17;
-                hash = hash*23 + Amount.GetHashCode();
-                hash = hash*23 + Currency.GetHashCode();
-                hash = hash*23 + Used.GetHashCode();
-                hash = hash*23 + Multiple.GetHashCode();
-                hash = hash*23 + Title.GetHashCode();
-                hash = hash*23 + Description.GetHashCode();
-                hash = hash*23 + Charges.GetHashCode();
-                hash = hash*23 + PaymentURI.GetHashCode();
+                hash = hash * 23 + Amount.GetHashCode();
+                hash = hash * 23 + Currency.GetHashCode();
+                hash = hash * 23 + Used.GetHashCode();
+                hash = hash * 23 + Multiple.GetHashCode();
+                hash = hash * 23 + Title.GetHashCode();
+                hash = hash * 23 + Description.GetHashCode();
+                hash = hash * 23 + Charges.GetHashCode();
+                hash = hash * 23 + PaymentURI.GetHashCode();
 
                 return hash;
             }
         }
     }
 
-    public partial class Recipient : ModelBase {
+    public partial class Recipient : ModelBase
+    {
         [JsonProperty("verified")]
         public bool Verified { get; set; }
         [JsonProperty("active")]
@@ -430,7 +468,8 @@ namespace Omise.Models {
         [JsonProperty("failure_code")]
         public string FailureCode { get; set; }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             if (obj == null) return false;
             var another = (Recipient)obj;
 
@@ -447,25 +486,28 @@ namespace Omise.Models {
                 true;
         }
 
-        public override int GetHashCode() {
-            unchecked {
+        public override int GetHashCode()
+        {
+            unchecked
+            {
                 int hash = 17;
-                hash = hash*23 + Verified.GetHashCode();
-                hash = hash*23 + Active.GetHashCode();
-                hash = hash*23 + Name.GetHashCode();
-                hash = hash*23 + Email.GetHashCode();
-                hash = hash*23 + Description.GetHashCode();
-                hash = hash*23 + Type.GetHashCode();
-                hash = hash*23 + TaxID.GetHashCode();
-                hash = hash*23 + BankAccount.GetHashCode();
-                hash = hash*23 + FailureCode.GetHashCode();
+                hash = hash * 23 + Verified.GetHashCode();
+                hash = hash * 23 + Active.GetHashCode();
+                hash = hash * 23 + Name.GetHashCode();
+                hash = hash * 23 + Email.GetHashCode();
+                hash = hash * 23 + Description.GetHashCode();
+                hash = hash * 23 + Type.GetHashCode();
+                hash = hash * 23 + TaxID.GetHashCode();
+                hash = hash * 23 + BankAccount.GetHashCode();
+                hash = hash * 23 + FailureCode.GetHashCode();
 
                 return hash;
             }
         }
     }
 
-    public partial class Refund : ModelBase {
+    public partial class Refund : ModelBase
+    {
         [JsonProperty("amount")]
         public long Amount { get; set; }
         [JsonProperty("currency")]
@@ -475,7 +517,8 @@ namespace Omise.Models {
         [JsonProperty("transaction")]
         public string Transaction { get; set; }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             if (obj == null) return false;
             var another = (Refund)obj;
 
@@ -487,26 +530,30 @@ namespace Omise.Models {
                 true;
         }
 
-        public override int GetHashCode() {
-            unchecked {
+        public override int GetHashCode()
+        {
+            unchecked
+            {
                 int hash = 17;
-                hash = hash*23 + Amount.GetHashCode();
-                hash = hash*23 + Currency.GetHashCode();
-                hash = hash*23 + Charge.GetHashCode();
-                hash = hash*23 + Transaction.GetHashCode();
+                hash = hash * 23 + Amount.GetHashCode();
+                hash = hash * 23 + Currency.GetHashCode();
+                hash = hash * 23 + Charge.GetHashCode();
+                hash = hash * 23 + Transaction.GetHashCode();
 
                 return hash;
             }
         }
     }
 
-    public partial class Token : ModelBase {
+    public partial class Token : ModelBase
+    {
         [JsonProperty("used")]
         public bool Used { get; set; }
         [JsonProperty("card")]
         public Card Card { get; set; }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             if (obj == null) return false;
             var another = (Token)obj;
 
@@ -516,18 +563,21 @@ namespace Omise.Models {
                 true;
         }
 
-        public override int GetHashCode() {
-            unchecked {
+        public override int GetHashCode()
+        {
+            unchecked
+            {
                 int hash = 17;
-                hash = hash*23 + Used.GetHashCode();
-                hash = hash*23 + Card.GetHashCode();
+                hash = hash * 23 + Used.GetHashCode();
+                hash = hash * 23 + Card.GetHashCode();
 
                 return hash;
             }
         }
     }
 
-    public partial class Transaction : ModelBase {
+    public partial class Transaction : ModelBase
+    {
         [JsonProperty("amount")]
         public long Amount { get; set; }
         [JsonProperty("currency")]
@@ -539,7 +589,8 @@ namespace Omise.Models {
         [JsonProperty("transferable")]
         public DateTime Transferable { get; set; }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             if (obj == null) return false;
             var another = (Transaction)obj;
 
@@ -552,21 +603,24 @@ namespace Omise.Models {
                 true;
         }
 
-        public override int GetHashCode() {
-            unchecked {
+        public override int GetHashCode()
+        {
+            unchecked
+            {
                 int hash = 17;
-                hash = hash*23 + Amount.GetHashCode();
-                hash = hash*23 + Currency.GetHashCode();
-                hash = hash*23 + Type.GetHashCode();
-                hash = hash*23 + Source.GetHashCode();
-                hash = hash*23 + Transferable.GetHashCode();
+                hash = hash * 23 + Amount.GetHashCode();
+                hash = hash * 23 + Currency.GetHashCode();
+                hash = hash * 23 + Type.GetHashCode();
+                hash = hash * 23 + Source.GetHashCode();
+                hash = hash * 23 + Transferable.GetHashCode();
 
                 return hash;
             }
         }
     }
 
-    public partial class Transfer : ModelBase {
+    public partial class Transfer : ModelBase
+    {
         [JsonProperty("recipient")]
         public string Recipient { get; set; }
         [JsonProperty("bankaccount")]
@@ -588,7 +642,8 @@ namespace Omise.Models {
         [JsonProperty("transaction")]
         public string Transaction { get; set; }
 
-        public override bool Equals(object obj) {
+        public override bool Equals(object obj)
+        {
             if (obj == null) return false;
             var another = (Transfer)obj;
 
@@ -606,19 +661,21 @@ namespace Omise.Models {
                 true;
         }
 
-        public override int GetHashCode() {
-            unchecked {
+        public override int GetHashCode()
+        {
+            unchecked
+            {
                 int hash = 17;
-                hash = hash*23 + Recipient.GetHashCode();
-                hash = hash*23 + BankAccount.GetHashCode();
-                hash = hash*23 + Sent.GetHashCode();
-                hash = hash*23 + Paid.GetHashCode();
-                hash = hash*23 + Fee.GetHashCode();
-                hash = hash*23 + Amount.GetHashCode();
-                hash = hash*23 + Currency.GetHashCode();
-                hash = hash*23 + FailureCode.GetHashCode();
-                hash = hash*23 + FailureMessage.GetHashCode();
-                hash = hash*23 + Transaction.GetHashCode();
+                hash = hash * 23 + Recipient.GetHashCode();
+                hash = hash * 23 + BankAccount.GetHashCode();
+                hash = hash * 23 + Sent.GetHashCode();
+                hash = hash * 23 + Paid.GetHashCode();
+                hash = hash * 23 + Fee.GetHashCode();
+                hash = hash * 23 + Amount.GetHashCode();
+                hash = hash * 23 + Currency.GetHashCode();
+                hash = hash * 23 + FailureCode.GetHashCode();
+                hash = hash * 23 + FailureMessage.GetHashCode();
+                hash = hash * 23 + Transaction.GetHashCode();
 
                 return hash;
             }
@@ -626,7 +683,8 @@ namespace Omise.Models {
     }
 
 
-    public partial class ModelTypes {
+    public partial class ModelTypes
+    {
         static readonly IDictionary<string, Type> lookup = new Dictionary<string, Type>
         {
             { "account", typeof(Account) },

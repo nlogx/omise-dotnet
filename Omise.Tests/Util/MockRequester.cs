@@ -3,27 +3,33 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Omise.Tests.Util {
-    public class MockRequester : IRequester {
+namespace Omise.Tests.Util
+{
+    public class MockRequester : IRequester
+    {
         readonly IList<RequestAttempt> requestAttempts;
 
         public object ResponseObject { get; set; }
-        public IList<RequestAttempt> Requests {
+        public IList<RequestAttempt> Requests
+        {
             get { return new ReadOnlyCollection<RequestAttempt>(requestAttempts); }
         }
 
-        public RequestAttempt LastRequest {
+        public RequestAttempt LastRequest
+        {
             get { return requestAttempts.Last(); }
         }
 
-        public MockRequester() {
+        public MockRequester()
+        {
             requestAttempts = new List<RequestAttempt>();
         }
 
         public async Task<TResult> Request<TResult>(
             Endpoint endpoint,
             string method,
-            string path) where TResult : class {
+            string path) where TResult : class
+        {
             return await Request<object, TResult>(endpoint, method, path, null);
         }
 
@@ -32,8 +38,10 @@ namespace Omise.Tests.Util {
             string method,
             string path,
             TPayload payload
-        ) where TPayload : class where TResult : class {
-            requestAttempts.Add(new RequestAttempt {
+        ) where TPayload : class where TResult : class
+        {
+            requestAttempts.Add(new RequestAttempt
+            {
                 Endpoint = endpoint,
                 Method = method,
                 Path = path,

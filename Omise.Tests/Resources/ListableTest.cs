@@ -4,17 +4,21 @@ using Omise.Models;
 using NUnit.Framework;
 using System.Threading.Tasks;
 
-namespace Omise.Tests.Resources {
+namespace Omise.Tests.Resources
+{
     [TestFixture]
-    public class ListableTest : ResourceTest<DummyListableResource> {
+    public class ListableTest : ResourceTest<DummyListableResource>
+    {
         [Test]
-        public async Task TestGetList() {
+        public async Task TestGetList()
+        {
             await Resource.GetList();
             AssertRequest("GET", "https://api.omise.co/dummy");
         }
 
         [Test]
-        public async Task TestGetListWithOptions() {
+        public async Task TestGetListWithOptions()
+        {
             await Resource.GetList(
                 offset: 2,
                 limit: 3,
@@ -30,14 +34,17 @@ namespace Omise.Tests.Resources {
                 "order=reverse_chronological");
         }
 
-        protected override DummyListableResource BuildResource(IRequester requester) {
+        protected override DummyListableResource BuildResource(IRequester requester)
+        {
             return new DummyListableResource(requester);
         }
     }
 
-    public class DummyListableResource : BaseResource<ModelBase>, IListable<ModelBase> {
+    public class DummyListableResource : BaseResource<ModelBase>, IListable<ModelBase>
+    {
         public DummyListableResource(IRequester requester)
-            : base(requester, Endpoint.Api, "/dummy") {
+            : base(requester, Endpoint.Api, "/dummy")
+        {
         }
     }
 }

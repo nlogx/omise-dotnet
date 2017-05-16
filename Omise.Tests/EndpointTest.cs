@@ -1,11 +1,14 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace Omise.Tests {
+namespace Omise.Tests
+{
     [TestFixture]
-    public class EndpointTest : OmiseTest {
+    public class EndpointTest : OmiseTest
+    {
         [Test]
-        public void TestCtor() {
+        public void TestCtor()
+        {
             var apiPrefix = "https://omise.example.com";
             Assert.Throws<ArgumentNullException>(() => new Endpoint(null));
 
@@ -20,7 +23,8 @@ namespace Omise.Tests {
         }
 
         [Test]
-        public void TestBuiltinEndpoint() {
+        public void TestBuiltinEndpoint()
+        {
             Assert.AreEqual(Endpoint.Api.KeySelector, Credentials.UseSecretKey);
             Assert.AreEqual(Endpoint.Vault.KeySelector, Credentials.UsePublicKey);
         }

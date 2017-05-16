@@ -1,5 +1,7 @@
-﻿namespace Omise.Models {
-    public enum DisputeStatus {
+﻿namespace Omise.Models
+{
+    public enum DisputeStatus
+    {
         Open,
         Pending,
         Won,

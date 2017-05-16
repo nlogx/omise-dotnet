@@ -3,38 +3,45 @@ using NUnit.Framework;
 using Omise.Models;
 using Omise.Resources;
 
-namespace Omise.Tests.Resources {
+namespace Omise.Tests.Resources
+{
     [TestFixture]
-    public class CardResourceTest : ResourceTest<CardResource> {
+    public class CardResourceTest : ResourceTest<CardResource>
+    {
         const string CustomerId = "cust_test_4yq6txdpfadhbaqnwp3";
         const string CardId = "card_test_4yq6tuucl9h4erukfl0";
 
         [Test]
-        public async Task TestGetList() {
+        public async Task TestGetList()
+        {
             await Resource.GetList();
             AssertRequest("GET", "https://api.omise.co/customers/{0}/cards", CustomerId);
         }
 
         [Test]
-        public async Task TestGet() {
+        public async Task TestGet()
+        {
             await Resource.Get(CardId);
             AssertRequest("GET", "https://api.omise.co/customers/{0}/cards/{1}", CustomerId, CardId);
         }
 
         [Test]
-        public async Task TestUpdate() {
+        public async Task TestUpdate()
+        {
             await Resource.Update(CardId, BuildUpdateRequest());
             AssertRequest("PATCH", "https://api.omise.co/customers/{0}/cards/{1}", CustomerId, CardId);
         }
 
         [Test]
-        public async Task TestDestroy() {
+        public async Task TestDestroy()
+        {
             await Resource.Destroy(CardId);
             AssertRequest("DELETE", "https://api.omise.co/customers/{0}/cards/{1}", CustomerId, CardId);
         }
 
         [Test]
-        public void TestUpdateCardRequest() {
+        public void TestUpdateCardRequest()
+        {
             AssertSerializedRequest(BuildUpdateRequest(),
                 "name=MasterCard+SmartPay&" +
                 "city=Bangkok&" +
@@ -45,7 +52,8 @@ namespace Omise.Tests.Resources {
         }
 
         [Test]
-        public void TestUpdateCardRequest_NameOnly() {
+        public void TestUpdateCardRequest_NameOnly()
+        {
             var request = BuildUpdateRequest();
             request.PostalCode = null;
             request.ExpirationMonth = null;
@@ -55,7 +63,8 @@ namespace Omise.Tests.Resources {
         }
 
         [Test]
-        public async Task TestFixturesGetList() {
+        public async Task TestFixturesGetList()
+        {
             var list = await Fixtures.GetList();
             Assert.AreEqual(1, list.Count);
 
@@ -65,28 +74,33 @@ namespace Omise.Tests.Resources {
         }
 
         [Test]
-        public async Task TestFixturesGet() {
+        public async Task TestFixturesGet()
+        {
             var card = await Fixtures.Get(CardId);
             Assert.AreEqual(CardId, card.Id);
             Assert.AreEqual("4242", card.LastDigits);
         }
 
         [Test]
-        public async Task TestFixturesUpdate() {
+        public async Task TestFixturesUpdate()
+        {
             var card = await Fixtures.Update(CardId, new UpdateCardRequest());
             Assert.AreEqual(CardId, card.Id);
             Assert.AreEqual("JOHN W. DOE", card.Name);
         }
 
         [Test]
-        public async Task TestFixturesDestroy() {
+        public async Task TestFixturesDestroy()
+        {
             var card = await Fixtures.Destroy(CardId);
             Assert.AreEqual(CardId, card.Id);
             Assert.IsTrue(card.Deleted);
         }
 
-        protected UpdateCardRequest BuildUpdateRequest() {
-            return new UpdateCardRequest {
+        protected UpdateCardRequest BuildUpdateRequest()
+        {
+            return new UpdateCardRequest
+            {
                 Name = "MasterCard SmartPay",
                 City = "Bangkok",
                 PostalCode = "12345",
@@ -95,7 +109,8 @@ namespace Omise.Tests.Resources {
             };
         }
 
-        protected override CardResource BuildResource(IRequester requester) {
+        protected override CardResource BuildResource(IRequester requester)
+        {
             return new CardResource(requester, CustomerId);
         }
     }

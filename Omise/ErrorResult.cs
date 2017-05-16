@@ -14,7 +14,7 @@ namespace Omise
 		[JsonProperty("code")]
 		public string Code { get; protected internal set; }
 
-		[JsonProperty("message")]
+        [JsonProperty("message")]
 		public string Message { get; protected internal set; }
 	}
 }

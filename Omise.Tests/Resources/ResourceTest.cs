@@ -2,8 +2,10 @@
 using Omise.Models;
 using Omise.Tests.Util;
 
-namespace Omise.Tests.Resources {
-    public abstract class ResourceTest<TResource> : OmiseTest {
+namespace Omise.Tests.Resources
+{
+    public abstract class ResourceTest<TResource> : OmiseTest
+    {
         protected MockRequester Requester { get; private set; }
         protected TResource Resource { get; private set; }
         protected Serializer Serializer { get; private set; }
@@ -11,7 +13,8 @@ namespace Omise.Tests.Resources {
         protected TResource Fixtures { get; private set; }
 
         [SetUp]
-        public void Setup() {
+        public void Setup()
+        {
             Requester = new MockRequester();
             Resource = BuildResource(Requester);
             Serializer = new Serializer();
@@ -26,7 +29,8 @@ namespace Omise.Tests.Resources {
             string method,
             string uriFormat,
             params object[] uriArgs
-        ) {
+        )
+        {
             var uri = string.Format(uriFormat, uriArgs);
 
             var attempt = Requester.LastRequest;
@@ -37,7 +41,8 @@ namespace Omise.Tests.Resources {
         protected void AssertSerializedRequest<TRequest>(
             TRequest request,
             string serialized
-        ) where TRequest : Request {
+        ) where TRequest : Request
+        {
             var encoded = Serializer.ExtractFormValues(request);
             var result = encoded.ReadAsStringAsync().Result;
 

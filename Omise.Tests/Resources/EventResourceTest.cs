@@ -2,25 +2,30 @@
 using NUnit.Framework;
 using Omise.Resources;
 
-namespace Omise.Tests.Resources {
+namespace Omise.Tests.Resources
+{
     [TestFixture]
-    public class EventResourceTest : ResourceTest<EventResource> {
+    public class EventResourceTest : ResourceTest<EventResource>
+    {
         const string EventId = "evnt_test_526yctupnje5mbldskd";
 
         [Test]
-        public async Task TestGetList() {
+        public async Task TestGetList()
+        {
             await Resource.GetList();
             AssertRequest("GET", "https://api.omise.co/events");
         }
 
         [Test]
-        public async Task TestGet() {
+        public async Task TestGet()
+        {
             await Resource.Get(EventId);
             AssertRequest("GET", "https://api.omise.co/events/{0}", EventId);
         }
 
         [Test]
-        public async Task TestFixturesGetList() {
+        public async Task TestFixturesGetList()
+        {
             var list = await Fixtures.GetList();
             Assert.AreEqual(20, list.Count);
 
@@ -30,13 +35,15 @@ namespace Omise.Tests.Resources {
         }
 
         [Test]
-        public async Task TestFixturesGet() {
+        public async Task TestFixturesGet()
+        {
             var ev = await Fixtures.Get(EventId);
             Assert.AreEqual(EventId, ev.Id);
             Assert.AreEqual("transfer.destroy", ev.Key);
         }
 
-        protected override EventResource BuildResource(IRequester requester) {
+        protected override EventResource BuildResource(IRequester requester)
+        {
             return new EventResource(requester);
         }
     }

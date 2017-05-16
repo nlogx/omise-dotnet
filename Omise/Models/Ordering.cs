@@ -1,7 +1,9 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Omise.Models {
-    public enum Ordering {
+namespace Omise.Models
+{
+    public enum Ordering
+    {
         [EnumMember(Value = null)]
         Unspecified,
         [EnumMember(Value = "chronological")]

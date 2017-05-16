@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace Omise.Models {
-    public class UpdateCardRequest : Request {
+namespace Omise.Models
+{
+    public class UpdateCardRequest : Request
+    {
         public string Name { get; set; }
         public string City { get; set; }
         [JsonProperty("postal_code")]

@@ -1,20 +1,24 @@
 ﻿using System.Threading.Tasks;
 using Omise.Models;
 
-namespace Omise.Resources {
+namespace Omise.Resources
+{
     public class ChargeResource : BaseResource<Charge>,
     IListable<Charge>,
     IListRetrievable<Charge>,
     ICreatable<Charge, CreateChargeRequest>,
     IUpdatable<Charge, UpdateChargeRequest>,
-    ISearchable<Charge> {
+    ISearchable<Charge>
+    {
         public SearchScope Scope => SearchScope.Charge;
 
         public ChargeResource(IRequester requester)
-            : base(requester, Endpoint.Api, "/charges") {
+            : base(requester, Endpoint.Api, "/charges")
+        {
         }
 
-        public async Task<Charge> Capture(string chargeId) {
+        public async Task<Charge> Capture(string chargeId)
+        {
             return await Requester.Request<Charge>(
                 Endpoint,
                 "POST",
@@ -22,7 +26,8 @@ namespace Omise.Resources {
             );
         }
 
-        public async Task<Charge> Reverse(string chargeId) {
+        public async Task<Charge> Reverse(string chargeId)
+        {
             return await Requester.Request<Charge>(
                 Endpoint,
                 "POST",

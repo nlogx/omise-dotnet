@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 
 namespace Omise.Tests.Util
 {
-    public class FixturesRoundtripper : IRoundtripper {
-        public HttpRequestMessage CreateRequest(string method, string uri) {
+    public class FixturesRoundtripper : IRoundtripper
+    {
+        public HttpRequestMessage CreateRequest(string method, string uri)
+        {
             return new HttpRequestMessage(new HttpMethod(method), uri);
         }
 
-        public Task<HttpResponseMessage> Roundtrip(HttpRequestMessage request) {
+        public Task<HttpResponseMessage> Roundtrip(HttpRequestMessage request)
+        {
             var response = FixedResponseFor(request);
 
             var source = new TaskCompletionSource<HttpResponseMessage>();
@@ -18,14 +21,16 @@ namespace Omise.Tests.Util
             return source.Task;
         }
 
-        private HttpResponseMessage FixedResponseFor(HttpRequestMessage request) {
+        private HttpResponseMessage FixedResponseFor(HttpRequestMessage request)
+        {
             var response = new HttpResponseMessage(HttpStatusCode.OK);
             var method = request.Method.ToString().ToLower();
             var host = request.RequestUri.Host;
             var path = request.RequestUri.AbsolutePath;
 
             var filename = $"fixtures/{host}{path}-{method}.json";
-            if (!TestData.Files.ContainsKey(filename)) {
+            if (!TestData.Files.ContainsKey(filename))
+            {
                 var segments = path.Split('/');
                 segments[segments.Length - 1] = "404";
 
@@ -33,7 +38,8 @@ namespace Omise.Tests.Util
                 filename = $"fixtures/{host}{string.Join("/", segments)}-{method}.json";
             }
 
-            if (!TestData.Files.ContainsKey(filename)) {
+            if (!TestData.Files.ContainsKey(filename))
+            {
                 Debugger.Break();
             }
 

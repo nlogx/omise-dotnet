@@ -2,22 +2,27 @@
 using System.Threading.Tasks;
 using Omise.Models;
 
-namespace Omise {
+namespace Omise
+{
     public interface IListable<TModel> : IResource<TModel>
-        where TModel : ModelBase {
+        where TModel : ModelBase
+    {
     }
 
-    public static class Listables {
+    public static class Listables
+    {
         static readonly Serializer serializer = new Serializer();
 
-        public class ListOptions {
+        public class ListOptions
+        {
             public int? Offset { get; internal set; }
             public int? Limit { get; internal set; }
             public DateTime? From { get; internal set; }
             public DateTime? To { get; internal set; }
             public Ordering? Order { get; internal set; }
 
-            public bool IsEmpty() {
+            public bool IsEmpty()
+            {
                 return Offset == null &&
                 Limit == null &&
                 From == null &&
@@ -33,9 +38,11 @@ namespace Omise {
             DateTime? from = null,
             DateTime? to = null,
             Ordering? order = null
-        ) where TResult : ModelBase {
+        ) where TResult : ModelBase
+        {
 
-            var opts = new ListOptions {
+            var opts = new ListOptions
+            {
                 Offset = offset,
                 Limit = limit,
                 From = from,
@@ -44,7 +51,8 @@ namespace Omise {
             };
 
             var path = resource.BasePath;
-            if (!opts.IsEmpty()) {
+            if (!opts.IsEmpty())
+            {
                 var content = serializer.ExtractFormValues(opts);
                 path += $"?{await content.ReadAsStringAsync()}";
             }

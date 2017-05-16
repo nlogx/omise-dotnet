@@ -1,4 +1,6 @@
-﻿namespace Omise.Models {
-    public abstract class Request {
+﻿namespace Omise.Models
+{
+    public abstract class Request
+    {
     }
 }

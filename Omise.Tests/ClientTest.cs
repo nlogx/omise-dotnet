@@ -1,11 +1,14 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace Omise.Tests {
+namespace Omise.Tests
+{
     [TestFixture]
-    public class ClientTest : OmiseTest {
+    public class ClientTest : OmiseTest
+    {
         [Test]
-        public void TestCtor() {
+        public void TestCtor()
+        {
             var pkey = "pkey_test_123";
             var skey = "skey_test_123";
 
@@ -20,7 +23,8 @@ namespace Omise.Tests {
         }
 
         [Test]
-        public void TestAPIVersion() {
+        public void TestAPIVersion()
+        {
             var client = new Client("pkey_test_123", "skey_test_123");
             client.APIVersion = "new-shiny-version";
             Assert.AreEqual("new-shiny-version", client.APIVersion);
@@ -28,7 +32,8 @@ namespace Omise.Tests {
         }
 
         [Test]
-        public void TestResources() {
+        public void TestResources()
+        {
             var client = new Client(DummyCredentials);
             var resources = new object[]
             {
@@ -46,7 +51,8 @@ namespace Omise.Tests {
                 client.Transfers,
             };
 
-            foreach (var resource in resources) {
+            foreach (var resource in resources)
+            {
                 Assert.IsNotNull(resource);
             }
 

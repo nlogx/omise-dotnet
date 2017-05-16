@@ -10,11 +10,13 @@ using Newtonsoft.Json.Serialization;
 
 namespace Omise
 {
-    public sealed class Serializer {
+    public sealed class Serializer
+    {
         readonly JsonSerializer jsonSerializer;
         readonly EnumValueConverter enumConverter;
 
-        public Serializer() {
+        public Serializer()
+        {
             enumConverter = new EnumValueConverter();
 
             // TODO: enumConverter will emit `null` for null values but in our case we are
@@ -28,32 +30,39 @@ namespace Omise
             jsonSerializer.NullValueHandling = NullValueHandling.Ignore;
         }
 
-        public void JsonSerialize<T>(Stream target, T payload) where T : class {
+        public void JsonSerialize<T>(Stream target, T payload) where T : class
+        {
             using (var writer = new StreamWriter(target))
-            using (var jsonWriter = new JsonTextWriter(writer)) {
+            using (var jsonWriter = new JsonTextWriter(writer))
+            {
                 jsonSerializer.Serialize(jsonWriter, payload);
             }
         }
 
-        public T JsonDeserialize<T>(Stream target) where T : class {
+        public T JsonDeserialize<T>(Stream target) where T : class
+        {
             using (var reader = new StreamReader(target))
-            using (var jsonReader = new JsonTextReader(reader)) {
+            using (var jsonReader = new JsonTextReader(reader))
+            {
                 return jsonSerializer.Deserialize<T>(jsonReader);
             }
         }
 
-        public void JsonPopulate(string json, object target) {
+        public void JsonPopulate(string json, object target)
+        {
             var buffer = Encoding.UTF8.GetBytes(json);
 
             using (var stream = new MemoryStream(buffer))
             using (var reader = new StreamReader(stream))
-            using (var jsonReader = new JsonTextReader(reader)) {
+            using (var jsonReader = new JsonTextReader(reader))
+            {
                 jsonSerializer.Populate(jsonReader, target);
             }
         }
 
 
-        public FormUrlEncodedContent ExtractFormValues(object payload) {
+        public FormUrlEncodedContent ExtractFormValues(object payload)
+        {
             var values = ExtractFormValues(payload, null);
             return new FormUrlEncodedContent(values);
         }
@@ -61,12 +70,14 @@ namespace Omise
         IEnumerable<KeyValuePair<string, string>> ExtractFormValues(
             object payload,
             string prefix
-        ) {
+        )
+        {
             var clrAsm = typeof(object).GetTypeInfo().Assembly;
             var stringDict = typeof(IDictionary<string, string>).GetTypeInfo();
 
             var props = payload.GetType().GetRuntimeProperties();
-            foreach (var prop in props) {
+            foreach (var prop in props)
+            {
                 var value = prop.GetValue(payload, null);
                 if (value == null) continue;
 
@@ -77,57 +88,70 @@ namespace Omise
                     .FirstOrDefault() ??
                            prop.Name.ToLower();
 
-                if (!string.IsNullOrEmpty(prefix)) {
+                if (!string.IsNullOrEmpty(prefix))
+                {
                     name = $"{prefix}[{name}]";
                 }
 
                 var typeInfo = value.GetType().GetTypeInfo();
-                if (typeInfo.IsClass && typeInfo.Assembly != clrAsm) {
-                    foreach (var result in ExtractFormValues(value, name)) {
+                if (typeInfo.IsClass && typeInfo.Assembly != clrAsm)
+                {
+                    foreach (var result in ExtractFormValues(value, name))
+                    {
                         yield return result;
                     }
 
                 }
-                else if (stringDict.IsAssignableFrom(typeInfo)) {
+                else if (stringDict.IsAssignableFrom(typeInfo))
+                {
                     var dict = (IDictionary<string, string>)value;
-                    foreach (var entry in dict) {
+                    foreach (var entry in dict)
+                    {
                         yield return new KeyValuePair<string, string>(
                             $"{name}[{entry.Key}]",
                             EncodeFormValueToString(entry.Value)
                         );
                     }
                 }
-                else {
+                else
+                {
                     var encodedValue = EncodeFormValueToString(value);
-                    if (encodedValue != null) {
+                    if (encodedValue != null)
+                    {
                         yield return new KeyValuePair<string, string>(name, encodedValue);
                     }
                 }
             }
         }
 
-        string EncodeFormValueToString(object value) {
+        string EncodeFormValueToString(object value)
+        {
             if (value == null) throw new ArgumentNullException(nameof(value));
 
             string str;
             Type type = value.GetType();
-            if (value is DateTime) {
+            if (value is DateTime)
+            {
                 str = ((DateTime)value).ToString("yyyy-MM-dd'T'HH:mm:ssZ");
 
             }
-            else if (value is string) {
+            else if (value is string)
+            {
                 str = (string)value;
 
             }
-            else if (value is bool) {
+            else if (value is bool)
+            {
                 str = value.ToString().ToLower();
 
             }
-            else if (type.GetTypeInfo().IsEnum) {
+            else if (type.GetTypeInfo().IsEnum)
+            {
                 str = enumConverter.ToSerializedString(value.GetType(), value);
 
             }
-            else {
+            else
+            {
                 str = value.ToString();
             }
 

@@ -1,10 +1,13 @@
 ﻿using NUnit.Framework;
 
-namespace Omise.Tests {
+namespace Omise.Tests
+{
     [TestFixture]
-    public class KeyTest : OmiseTest {
+    public class KeyTest : OmiseTest
+    {
         [Test]
-        public void TestStringImplicitAssignable() {
+        public void TestStringImplicitAssignable()
+        {
             var s = "pkey_string_test";
             Key key = s;
 
@@ -12,7 +15,8 @@ namespace Omise.Tests {
         }
 
         [Test]
-        public void TestModes() {
+        public void TestModes()
+        {
             Key pkey = "pkey_test_123";
             Key skey = "skey_123";
 
@@ -21,14 +25,16 @@ namespace Omise.Tests {
         }
 
         [Test]
-        public void TestAuthorizationHeader() {
+        public void TestAuthorizationHeader()
+        {
             Key key = "skey_test_1234";
             var result = "Basic c2tleV90ZXN0XzEyMzQ6";
             Assert.AreEqual(result, key.EncodeForAuthorizationHeader());
         }
 
         [Test]
-        public void TestToString() {
+        public void TestToString()
+        {
             var s = "pkey_string_test";
             Key k = s;
 

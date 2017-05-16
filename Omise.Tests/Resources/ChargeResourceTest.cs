@@ -4,49 +4,58 @@ using Omise.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Omise.Tests.Resources {
+namespace Omise.Tests.Resources
+{
     [TestFixture]
-    public class ChargeResourceTest : ResourceTest<ChargeResource> {
+    public class ChargeResourceTest : ResourceTest<ChargeResource>
+    {
         const string ChargeId = "chrg_test_4yq7duw15p9hdrjp8oq";
 
         [Test]
-        public async Task TestGetList() {
+        public async Task TestGetList()
+        {
             await Resource.GetList();
             AssertRequest("GET", "https://api.omise.co/charges");
         }
 
         [Test]
-        public async Task TestGet() {
+        public async Task TestGet()
+        {
             await Resource.Get(ChargeId);
             AssertRequest("GET", "https://api.omise.co/charges/{0}", ChargeId);
         }
 
         [Test]
-        public async Task TestCreate() {
+        public async Task TestCreate()
+        {
             await Resource.Create(BuildCreateRequest());
             AssertRequest("POST", "https://api.omise.co/charges");
         }
 
         [Test]
-        public async Task TestUpdate() {
+        public async Task TestUpdate()
+        {
             await Resource.Update(ChargeId, BuildUpdateRequest());
             AssertRequest("PATCH", "https://api.omise.co/charges/{0}", ChargeId);
         }
 
         [Test]
-        public async Task TestCapture() {
+        public async Task TestCapture()
+        {
             await Resource.Capture(ChargeId);
             AssertRequest("POST", "https://api.omise.co/charges/{0}/capture", ChargeId);
         }
 
         [Test]
-        public async Task TestReverse() {
+        public async Task TestReverse()
+        {
             await Resource.Reverse(ChargeId);
             AssertRequest("POST", "https://api.omise.co/charges/{0}/reverse", ChargeId);
         }
 
         [Test]
-        public async Task TestSearch() {
+        public async Task TestSearch()
+        {
             var filters = new Dictionary<string, string> { { "amount", "1000.00" } };
             await Resource.Search(ChargeId, filters);
             AssertRequest(
@@ -58,7 +67,8 @@ namespace Omise.Tests.Resources {
         }
 
         [Test]
-        public void TestCreateChargeRequest() {
+        public void TestCreateChargeRequest()
+        {
             AssertSerializedRequest(BuildCreateRequest(),
                 "customer=Omise+Co.%2C+Ltd.&" +
                 "card=card_test_123&" +
@@ -72,14 +82,16 @@ namespace Omise.Tests.Resources {
         }
 
         [Test]
-        public void TestUpdateChargeRequest() {
+        public void TestUpdateChargeRequest()
+        {
             AssertSerializedRequest(BuildUpdateRequest(),
                 "description=Charge+was+for+testing."
             );
         }
 
         [Test]
-        public async Task TestFixturesGetList() {
+        public async Task TestFixturesGetList()
+        {
             var list = await Fixtures.GetList();
             Assert.AreEqual(1, list.Count);
 
@@ -88,28 +100,32 @@ namespace Omise.Tests.Resources {
         }
 
         [Test]
-        public async Task TestFixturesGet() {
+        public async Task TestFixturesGet()
+        {
             var charge = await Fixtures.Get(ChargeId);
             Assert.AreEqual(ChargeId, charge.Id);
             Assert.AreEqual(100000, charge.Amount);
         }
 
         [Test]
-        public async Task TestFixturesCreate() {
+        public async Task TestFixturesCreate()
+        {
             var charge = await Fixtures.Create(new CreateChargeRequest());
             Assert.AreEqual(ChargeId, charge.Id);
             Assert.AreEqual(100000, charge.Amount);
         }
 
         [Test]
-        public async Task TestFixturesUpdate() {
+        public async Task TestFixturesUpdate()
+        {
             var charge = await Fixtures.Update(ChargeId, new UpdateChargeRequest());
             Assert.AreEqual(ChargeId, charge.Id);
             Assert.AreEqual("Charge for order 3947 (XXL)", charge.Description);
         }
 
         [Test]
-        public async Task TestFixturesSearch() {
+        public async Task TestFixturesSearch()
+        {
             var result = await Fixtures.Search(filters: new Dictionary<string, string> {
                 { "amount", "4096.69" }
             });
@@ -120,8 +136,10 @@ namespace Omise.Tests.Resources {
             Assert.That(result[0].Amount, Is.EqualTo(409669));
         }
 
-        protected CreateChargeRequest BuildCreateRequest() {
-            return new CreateChargeRequest {
+        protected CreateChargeRequest BuildCreateRequest()
+        {
+            return new CreateChargeRequest
+            {
                 Customer = "Omise Co., Ltd.",
                 Card = "card_test_123",
                 Amount = 244884,
@@ -133,13 +151,16 @@ namespace Omise.Tests.Resources {
             };
         }
 
-        protected UpdateChargeRequest BuildUpdateRequest() {
-            return new UpdateChargeRequest {
+        protected UpdateChargeRequest BuildUpdateRequest()
+        {
+            return new UpdateChargeRequest
+            {
                 Description = "Charge was for testing."
             };
         }
 
-        protected override ChargeResource BuildResource(IRequester requester) {
+        protected override ChargeResource BuildResource(IRequester requester)
+        {
             return new ChargeResource(requester);
         }
     }
