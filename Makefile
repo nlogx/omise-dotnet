@@ -17,7 +17,7 @@ MONO    := mono
 MSBUILD := msbuild /p:Configuration=$(CONFIG)
 NUNIT   := $(MONO) packages/NUnit.ConsoleRunner.3.6.1/tools/nunit3-console.exe
 
-.PHONY: test
+.PHONY: test clean
 
 build: $(OMISE_DLL)
 $(OMISE_DLL): $(OMISE_CSPROJ) $(SRC_FILES)
@@ -26,6 +26,11 @@ $(OMISE_DLL): $(OMISE_CSPROJ) $(SRC_FILES)
 build-test: $(OMISE_TEST_DLL) $(SRC_TEST_FILES)
 $(OMISE_TEST_DLL): $(OMISE_TEST_CSPROJ) $(SRC_TEST_FILES)
 	$(MSBUILD) $(OMISE_TEST_CSPROJ)
+
+clean:
+	$(MSBUILD) /target:Clean $(OMISE_CSPROJ)
+clean-test:
+	$(MSBUILD) /target:Clean $(OMISE_TEST_CSPROJ)
 
 test: $(OMISE_TEST_DLL)
 	$(NUNIT) --noresult --full $(OMISE_TEST_DLL) 
