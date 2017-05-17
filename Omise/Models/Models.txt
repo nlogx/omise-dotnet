@@ -44,6 +44,11 @@ Charge
   ReturnURI string return_uri
   AuthorizeURI string authorize_uri
   Offsite OffsiteTypes
+ChargeScheduleDetails
+  Amount long
+  Currency string
+  Customer string
+  Card string
 Customer
   DefaultCard string default_card
   Email string
@@ -67,6 +72,14 @@ Link
   Description string
   Charges ScopedList<Charge>
   PaymentURI string payment_uri
+Occurrence
+  Schedule string
+  ScheduleDate DateTime schedule_date
+  RetryDate DateTime retry_date
+  ProcessedAt DateTime processed_at
+  Status OccurrenceStatus
+  Message String
+  Result String
 Recipient
   Verified bool
   Active bool
@@ -82,6 +95,21 @@ Refund
   Currency string
   Charge string
   Transaction string
+Schedule
+  Status ScheduleStatus
+  Every int
+  Period SchedulePeriod
+  InWords String in_words
+  On ScheduleOn
+  StartDate DateTime start_date
+  EndDate DateTime end_date
+  Charge ChargeScheduleDetails
+  Transfer TransferScheduleDetails
+  Occurrences ScopedList<Occurrence>
+ScheduleOn
+  Weekdays int[]
+  DaysOfMonth int[] days_of_month
+  WeekdayOfMonth String weekday_of_month
 Token
   Used bool
   Card Card
@@ -102,3 +130,8 @@ Transfer
   FailureCode string failure_code
   FailureMessage string failure_message
   Transaction string
+TransferScheduleDetails
+  Recipient string
+  Amount long
+  Currency string
+  PercentageOfBalance float percentage_of_balance
