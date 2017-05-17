@@ -4,6 +4,11 @@
 
 * **CHANGED:** Library now targets .NET Standard 1.2 instead of the PCL.
 * **CHANGED:** Library is now built with Visual Studio for Mac 2017
+* **CHANGED:** Resources with parent-child relationship such as Refunds which are
+  Charge-specific are now accessed through a new `client.Charge("chrg_id")` method.
+* **NEW:** Schedules API.
+* **NEW:** Refund, Transfer and Link can now be searched.
+* **NEW:** Miscellaneous additions to existing APIs.
 
 # v2.4.2
 
