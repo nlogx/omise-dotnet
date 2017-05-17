@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using Omise.Tests.Resources;
 
 namespace Omise.Tests
 {
@@ -39,13 +40,17 @@ namespace Omise.Tests
             {
                 client.Account,
                 client.Balance,
-                client.Cards,
+                client.Charge("chrg_test_4yq7duw15p9hdrjp8oq"),
                 client.Charges,
                 client.Customers,
+                client.Customer("cust_test_4yq6txdpfadhbaqnwp3"),
                 client.Disputes,
                 client.Events,
+                client.Occurrences,
                 client.Recipients,
                 client.Refunds,
+                client.Schedules,
+                client.Schedule("schd_test_57ze0f4rbugx2jjlg4y"),
                 client.Tokens,
                 client.Transactions,
                 client.Transfers,
@@ -55,11 +60,6 @@ namespace Omise.Tests
             {
                 Assert.IsNotNull(resource);
             }
-
-            var cards = client.Cards.ByCustomer("cust_test_123");
-            Assert.IsNotNull(cards);
-            var refunds = client.Refunds.ByCharge("chrg_test_123");
-            Assert.IsNotNull(refunds);
         }
     }
 }

@@ -1,35 +1,17 @@
-﻿using Omise.Models;
+﻿using System;
+using Omise.Models;
 
 namespace Omise.Resources
 {
-    public class RefundResourceShim
-    {
-        readonly IRequester requester;
-
-        public RefundResourceShim(IRequester requester)
-        {
-            this.requester = requester;
-        }
-
-        public RefundResource ByCharge(string chargeId)
-        {
-            return new RefundResource(requester, chargeId);
-        }
-    }
-
     public class RefundResource : BaseResource<Refund>,
     IListable<Refund>,
-    IListRetrievable<Refund>,
-    ICreatable<Refund, CreateRefundRequest>
+    ISearchable<Refund>
     {
-        public RefundResource(IRequester requester, string chargeId)
-            : base(requester, Endpoint.Api, basePathFor(chargeId))
-        {
-        }
+        public SearchScope Scope => SearchScope.Refund;
 
-        static string basePathFor(string chargeId)
+        public RefundResource(IRequester requester)
+            : base(requester, Endpoint.Api, "/refunds")
         {
-            return $"/charges/{chargeId}/refunds";
         }
     }
 }

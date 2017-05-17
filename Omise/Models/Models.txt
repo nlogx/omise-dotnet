@@ -1,5 +1,6 @@
 ﻿Account
   Email string
+  Currency string
 Balance
   Available long
   Total long
@@ -44,7 +45,7 @@ Charge
   ReturnURI string return_uri
   AuthorizeURI string authorize_uri
   Offsite OffsiteTypes
-ChargeScheduleDetails
+ChargeScheduling
   Amount long
   Currency string
   Customer string
@@ -63,6 +64,8 @@ Dispute
 Event
   Key string
   RawDataJson JRaw data
+Forex
+  Rate float
 Link
   Amount long
   Currency string
@@ -99,15 +102,16 @@ Schedule
   Status ScheduleStatus
   Every int
   Period SchedulePeriod
-  InWords String in_words
   On ScheduleOn
+  InWords String in_words
   StartDate DateTime start_date
   EndDate DateTime end_date
-  Charge ChargeScheduleDetails
-  Transfer TransferScheduleDetails
+  Charge ChargeScheduling
+  Transfer TransferScheduling
   Occurrences ScopedList<Occurrence>
+  NextOccurrences ScopedList<Occurrence> next_occurrences
 ScheduleOn
-  Weekdays int[]
+  Weekdays Weekdays[]
   DaysOfMonth int[] days_of_month
   WeekdayOfMonth String weekday_of_month
 Token

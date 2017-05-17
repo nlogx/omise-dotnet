@@ -20,13 +20,15 @@ namespace Omise
             public string Query { get; internal set; }
             public IDictionary<string, string> Filters { get; internal set; }
             public Ordering? Order { get; internal set; }
+            public int? Page { get; internal set; }
 
             public bool IsEmpty()
             {
                 return Scope == null &&
                     Query == null &&
                     Filters == null &&
-                    Order == null;
+                    Order == null &&
+                    Page == null;
             }
         }
 
@@ -34,16 +36,17 @@ namespace Omise
             this ISearchable<TResult> resource,
             string query = null,
             IDictionary<string, string> filters = null,
-            Ordering? order = null
+            Ordering? order = null,
+            int page = null
         ) where TResult : ModelBase
         {
-
             var opts = new SearchOptions
             {
                 Scope = resource.Scope,
                 Query = query,
                 Filters = filters,
                 Order = order,
+                Page = page,
             };
 
             var path = "/search";

@@ -9,9 +9,9 @@ namespace Omise.Resources
     IUpdatable<Dispute, UpdateDisputeRequest>,
     ISearchable<Dispute>
     {
-        public StatusSpecificDispute OpenDisputes { get; private set; }
-        public StatusSpecificDispute PendingDisputes { get; private set; }
-        public StatusSpecificDispute ClosedDisputes { get; private set; }
+        public readonly StatusSpecificDispute OpenDisputes;
+        public readonly StatusSpecificDispute PendingDisputes;
+        public readonly StatusSpecificDispute ClosedDisputes;
 
         public SearchScope Scope => SearchScope.Dispute;
 
@@ -24,31 +24,4 @@ namespace Omise.Resources
         }
     }
 
-    // TODO: Convert to nested resource?
-    public class StatusSpecificDispute : BaseResource<Dispute>,
-    IListable<Dispute>
-    {
-        public StatusSpecificDispute(DisputeStatus status, IRequester requester)
-            : base(requester, Endpoint.Api, pathForStatus(status))
-        {
-        }
-
-        static string pathForStatus(DisputeStatus status)
-        {
-            switch (status)
-            {
-                case DisputeStatus.Open:
-                    return "/disputes/open";
-                case DisputeStatus.Pending:
-                    return "/disputes/pending";
-                case DisputeStatus.Closed:
-                case DisputeStatus.Won:
-                case DisputeStatus.Lost:
-                    return "/disputes/closed";
-
-                default:
-                    throw new ArgumentException("status");
-            }
-        }
-    }
 }

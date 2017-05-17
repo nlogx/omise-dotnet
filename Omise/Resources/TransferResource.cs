@@ -1,4 +1,5 @@
-﻿using Omise.Models;
+﻿using System;
+using Omise.Models;
 
 namespace Omise.Resources
 {
@@ -7,8 +8,11 @@ namespace Omise.Resources
     IListRetrievable<Transfer>,
     ICreatable<Transfer, CreateTransferRequest>,
     IUpdatable<Transfer, UpdateTransferRequest>,
-    IDestroyable<Transfer>
+    IDestroyable<Transfer>,
+    ISearchable<Transfer>
     {
+        public SearchScope Scope => SearchScope.Transfer;
+
         public TransferResource(IRequester requester)
             : base(requester, Endpoint.Api, "/transfers")
         {

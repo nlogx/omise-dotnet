@@ -10,11 +10,14 @@ namespace Omise.Resources
     IUpdatable<Charge, UpdateChargeRequest>,
     ISearchable<Charge>
     {
+        public readonly ChargeScheduleResource Schedules;
+
         public SearchScope Scope => SearchScope.Charge;
 
         public ChargeResource(IRequester requester)
             : base(requester, Endpoint.Api, "/charges")
         {
+            Schedules = new ChargeScheduleResource(requester);
         }
 
         public async Task<Charge> Capture(string chargeId)

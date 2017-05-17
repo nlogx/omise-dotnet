@@ -1,5 +1,6 @@
 ﻿using System;
 using Omise.Resources;
+using Omise.Models;
 
 namespace Omise
 {
@@ -9,14 +10,15 @@ namespace Omise
 
         public readonly AccountResource Account;
         public readonly BalanceResource Balance;
-        public readonly CardResourceShim Cards;
         public readonly ChargeResource Charges;
         public readonly CustomerResource Customers;
         public readonly DisputeResource Disputes;
         public readonly EventResource Events;
         public readonly LinkResource Links;
+        public readonly OccurrenceResource Occurrences;
         public readonly RecipientResource Recipients;
-        public readonly RefundResourceShim Refunds;
+        public readonly RefundResource Refunds;
+        public readonly ScheduleResource Schedules;
         public readonly TokenResource Tokens;
         public readonly TransactionResource Transactions;
         public readonly TransferResource Transfers;
@@ -44,17 +46,22 @@ namespace Omise
 
             Account = new AccountResource(requester);
             Balance = new BalanceResource(requester);
-            Cards = new CardResourceShim(requester);
             Charges = new ChargeResource(requester);
             Customers = new CustomerResource(requester);
             Disputes = new DisputeResource(requester);
             Events = new EventResource(requester);
             Links = new LinkResource(requester);
+            Occurrences = new OccurrenceResource(requester);
             Recipients = new RecipientResource(requester);
-            Refunds = new RefundResourceShim(requester);
+            Refunds = new RefundResource(requester);
+            Schedules = new ScheduleResource(requester);
             Tokens = new TokenResource(requester);
             Transactions = new TransactionResource(requester);
             Transfers = new TransferResource(requester);
         }
+
+        public ChargeSpecificResource Charge(string chargeId) => new ChargeSpecificResource(requester, chargeId);
+        public CustomerSpecificResource Customer(string customerId) => new CustomerSpecificResource(requester, customerId);
+        public ScheduleSpecificResource Schedule(string scheduleId) => new ScheduleSpecificResource(requester, scheduleId);
     }
 }

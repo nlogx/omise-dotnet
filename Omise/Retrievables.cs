@@ -3,6 +3,8 @@ using Omise.Models;
 
 namespace Omise
 {
+    // TODO: [vNext] - We should apply IRetrievable on X-SpecificResource and
+    //   forego IListRetrievable for maximum consistency.
     public interface IRetrievable<TModel> : IResource<TModel> where TModel : ModelBase
     {
     }
