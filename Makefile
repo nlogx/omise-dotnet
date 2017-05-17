@@ -20,6 +20,7 @@ T4      := $(MONO) /Applications/Visual\ Studio.app/Contents/Resources/lib/monod
 
 .PHONY: test clean
 
+t4: $(T4_OUTPUT_FILES)
 %.cs: %.tt
 	$(T4) -o="$@" "$<"
 
