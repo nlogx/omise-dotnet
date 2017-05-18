@@ -9,7 +9,7 @@ namespace Omise.Resources
     IDestroyable<Card>
     {
         public CustomerSpecificCardResource(IRequester requester, string customerId)
-            : base(requester, Endpoint.Api, $"/customers/${customerId}/cards")
+            : base(requester, Endpoint.Api, $"/customers/{customerId}/cards")
         {
         }
     }

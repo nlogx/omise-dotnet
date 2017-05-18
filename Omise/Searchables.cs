@@ -37,7 +37,7 @@ namespace Omise
             string query = null,
             IDictionary<string, string> filters = null,
             Ordering? order = null,
-            int page = null
+            int? page = null
         ) where TResult : ModelBase
         {
             var opts = new SearchOptions

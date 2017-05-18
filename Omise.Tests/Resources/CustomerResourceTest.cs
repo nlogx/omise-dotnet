@@ -46,6 +46,13 @@ namespace Omise.Tests.Resources
         }
 
         [Test]
+        public async Task TestSearch()
+        {
+            await Resource.Search(CustomerId);
+            AssertRequest("GET", $"https://api.omise.co/search?scope=customer&query={CustomerId}");
+        }
+
+        [Test]
         public void TestCreateCustomerRequest()
         {
             AssertSerializedRequest(BuildCreateRequest(),

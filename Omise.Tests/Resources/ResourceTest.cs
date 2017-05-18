@@ -43,10 +43,11 @@ namespace Omise.Tests.Resources
             string serialized
         ) where TRequest : Request
         {
-            var encoded = Serializer.ExtractFormValues(request);
-            var result = encoded.ReadAsStringAsync().Result;
-
-            Assert.AreEqual(serialized, result);
+            using (var ms = new StringMemoryStream())
+            {
+                Serializer.JsonSerialize(ms, request);
+                Assert.AreEqual(serialized, ms.ToDecodedString());
+            }
         }
     }
 }

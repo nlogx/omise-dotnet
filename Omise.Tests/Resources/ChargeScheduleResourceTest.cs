@@ -12,7 +12,7 @@ namespace Omise.Tests.Resources
         public async Task TestGetList()
         {
             await Resource.GetList();
-            AssertRequest("GET", "https://api.omise.co/charges/shcedules");
+            AssertRequest("GET", "https://api.omise.co/charges/schedules");
         }
 
         protected override ChargeScheduleResource BuildResource(IRequester requester)

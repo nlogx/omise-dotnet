@@ -40,6 +40,15 @@ namespace Omise.Tests.Resources
             AssertRequest("DELETE", $"https://api.omise.co/schedules/{ScheduleId}");
         }
 
+        [Test]
+        public void CreateScheduleRequest()
+        {
+            AssertSerializedRequest(
+                BuildCreateRequest(),
+                "customer=x"
+            );
+        }
+
         protected CreateScheduleRequest BuildCreateRequest()
         {
             return new CreateScheduleRequest

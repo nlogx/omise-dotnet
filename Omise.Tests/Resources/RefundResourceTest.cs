@@ -1,81 +1,32 @@
-﻿using System.Threading.Tasks;
-using NUnit.Framework;
-using Omise.Models;
+﻿using System;
 using Omise.Resources;
+using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace Omise.Tests.Resources
 {
     [TestFixture]
     public class RefundResourceTest : ResourceTest<RefundResource>
     {
-        const string ChargeId = "chrg_test_4yq7duw15p9hdrjp8oq";
-        const string RefundId = "rfnd_test_4yqmv79ahghsiz23y3c";
+        const string RefundId = "rfnd_test_56gs5h8w22wcmhmg92c";
 
         [Test]
         public async Task TestGetList()
         {
             await Resource.GetList();
-            AssertRequest("GET", "https://api.omise.co/charges/{0}/refunds", ChargeId);
+            AssertRequest("GET", "https://api.omise.co/refunds");
         }
 
         [Test]
-        public async Task TestGet()
+        public async Task TestSearch()
         {
-            await Resource.Get(RefundId);
-            AssertRequest("GET", "https://api.omise.co/charges/{0}/refunds/{1}", ChargeId, RefundId);
-        }
-
-        [Test]
-        public async Task TestCreate()
-        {
-            await Resource.Create(BuildCreateRequest());
-            AssertRequest("POST", "https://api.omise.co/charges/{0}/refunds", ChargeId);
-        }
-
-        [Test]
-        public void TestCreateRefundRequest()
-        {
-            AssertSerializedRequest(BuildCreateRequest(),
-                "amount=300000&void=false"
-            );
-        }
-
-        [Test]
-        public async Task TestFixturesGetList()
-        {
-            var list = await Fixtures.GetList();
-            Assert.AreEqual(1, list.Count);
-
-            var refund = list[0];
-            Assert.AreEqual(RefundId, refund.Id);
-            Assert.AreEqual(10000, refund.Amount);
-        }
-
-        [Test]
-        public async Task TestFixturesGet()
-        {
-            var refund = await Fixtures.Get(RefundId);
-            Assert.AreEqual(RefundId, refund.Id);
-            Assert.AreEqual(10000, refund.Amount);
-        }
-
-        [Test]
-        public async Task TestFixturesCreate()
-        {
-            var refund = await Fixtures.Create(new CreateRefundRequest());
-            Assert.AreEqual(RefundId, refund.Id);
-            Assert.AreEqual(10000, refund.Amount);
-        }
-
-        protected CreateRefundRequest BuildCreateRequest()
-        {
-            return new CreateRefundRequest { Amount = 300000 };
+            await Resource.Search(RefundId);
+            AssertRequest("GET", $"https://api.omise.co/search?scope=refund&query={RefundId}");
         }
 
         protected override RefundResource BuildResource(IRequester requester)
         {
-            return new RefundResource(requester, ChargeId);
+            return new RefundResource(requester);
         }
     }
 }
-

@@ -6,7 +6,7 @@ using Omise.Resources;
 namespace Omise.Tests.Resources
 {
     [TestFixture]
-    public class CardResourceTest : ResourceTest<CardResource>
+    public class CustomerSpecificCardResourceTest : ResourceTest<CustomerSpecificCardResource>
     {
         const string CustomerId = "cust_test_4yq6txdpfadhbaqnwp3";
         const string CardId = "card_test_4yq6tuucl9h4erukfl0";
@@ -15,28 +15,28 @@ namespace Omise.Tests.Resources
         public async Task TestGetList()
         {
             await Resource.GetList();
-            AssertRequest("GET", "https://api.omise.co/customers/{0}/cards", CustomerId);
+            AssertRequest("GET", $"https://api.omise.co/customers/{CustomerId}/cards");
         }
 
         [Test]
         public async Task TestGet()
         {
             await Resource.Get(CardId);
-            AssertRequest("GET", "https://api.omise.co/customers/{0}/cards/{1}", CustomerId, CardId);
+            AssertRequest("GET", $"https://api.omise.co/customers/{CustomerId}/cards/{CardId}");
         }
 
         [Test]
         public async Task TestUpdate()
         {
             await Resource.Update(CardId, BuildUpdateRequest());
-            AssertRequest("PATCH", "https://api.omise.co/customers/{0}/cards/{1}", CustomerId, CardId);
+            AssertRequest("PATCH", $"https://api.omise.co/customers/{CustomerId}/cards/{CardId}");
         }
 
         [Test]
         public async Task TestDestroy()
         {
             await Resource.Destroy(CardId);
-            AssertRequest("DELETE", "https://api.omise.co/customers/{0}/cards/{1}", CustomerId, CardId);
+            AssertRequest("DELETE", $"https://api.omise.co/customers/{CustomerId}/cards/{CardId}");
         }
 
         [Test]
@@ -109,9 +109,9 @@ namespace Omise.Tests.Resources
             };
         }
 
-        protected override CardResource BuildResource(IRequester requester)
+        protected override CustomerSpecificCardResource BuildResource(IRequester requester)
         {
-            return new CardResource(requester, CustomerId);
+            return new CustomerSpecificCardResource(requester, CustomerId);
         }
     }
 }

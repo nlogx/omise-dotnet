@@ -10,9 +10,14 @@ namespace Omise.Tests.Resources
         const string ChargeId = "chrg_test_4yq7duw15p9hdrjp8oq";
 
         [Test]
+        public void TestBasePath()
+        {
+            Assert.IsTrue(Resource.BasePath.Contains(ChargeId));
+        }
+
+        [Test]
         public void TestRefunds()
         {
-            Assert.AreEqual(ChargeId, Resource.ParentId);
             Assert.IsNotNull(Resource.Refunds);
         }
 
