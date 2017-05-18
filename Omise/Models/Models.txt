@@ -45,11 +45,6 @@ Charge
   ReturnURI string return_uri
   AuthorizeURI string authorize_uri
   Offsite OffsiteTypes
-ChargeScheduling
-  Amount long
-  Currency string
-  Customer string
-  Card string
 Customer
   DefaultCard string default_card
   Email string
@@ -134,8 +129,3 @@ Transfer
   FailureCode string failure_code
   FailureMessage string failure_message
   Transaction string
-TransferScheduleDetails
-  Recipient string
-  Amount long
-  Currency string
-  PercentageOfBalance float percentage_of_balance

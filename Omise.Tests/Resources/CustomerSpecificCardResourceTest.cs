@@ -42,12 +42,13 @@ namespace Omise.Tests.Resources
         [Test]
         public void TestUpdateCardRequest()
         {
-            AssertSerializedRequest(BuildUpdateRequest(),
-                "name=MasterCard+SmartPay&" +
-                "city=Bangkok&" +
-                "postal_code=12345&" +
-                "expiration_month=12&" +
-                "expiration_year=2018"
+            AssertSerializedRequest(
+                BuildUpdateRequest(),
+                @"{""name"":""MasterCard SmartPay""," +
+                @"""city"":""Bangkok""," +
+                @"""postal_code"":""12345""," +
+                @"""expiration_month"":12," +
+                @"""expiration_year"":2018}"
             );
         }
 
@@ -59,7 +60,11 @@ namespace Omise.Tests.Resources
             request.ExpirationMonth = null;
             request.ExpirationYear = null;
 
-            AssertSerializedRequest(request, "name=MasterCard+SmartPay&city=Bangkok");
+            AssertSerializedRequest(
+                request,
+                @"{""name"":""MasterCard SmartPay""," +
+                @"""city"":""Bangkok""}"
+            );
         }
 
         [Test]

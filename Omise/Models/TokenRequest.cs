@@ -2,24 +2,25 @@
 
 namespace Omise.Models
 {
-    // TODO: Test request serialization.
+    // Will be serialized wrapped in a "card" key.
+    // See TokenResource for more info.
     public class CreateTokenRequest : Request
     {
-        [JsonProperty("card[name]")]
+        [JsonProperty("name")]
         public string Name { get; set; }
-        [JsonProperty("card[number]")]
+        [JsonProperty("number")]
         public string Number { get; set; }
 
-        [JsonProperty("card[expiration_month]")]
+        [JsonProperty("expiration_month")]
         public int ExpirationMonth { get; set; }
-        [JsonProperty("card[expiration_year]")]
+        [JsonProperty("expiration_year")]
         public int ExpirationYear { get; set; }
 
-        [JsonProperty("card[security_code]")]
+        [JsonProperty("security_code")]
         public string SecurityCode { get; set; }
-        [JsonProperty("card[city]")]
+        [JsonProperty("city")]
         public string City { get; set; }
-        [JsonProperty("card[postal_code]")]
+        [JsonProperty("postal_code")]
         public string PostalCode { get; set; }
     }
 }

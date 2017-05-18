@@ -33,12 +33,13 @@ namespace Omise.Tests.Resources
         [Test]
         public void TestCreateLinkRequest()
         {
-            AssertSerializedRequest(BuildCreateRequest(),
-                "amount=2000&" +
-                "currency=thb&" +
-                "title=Test+Link&" +
-                "description=Hello+World&" +
-                "multiple=true"
+            AssertSerializedRequest(
+                BuildCreateRequest(),
+                @"{""amount"":2000," +
+                @"""currency"":""thb""," +
+                @"""title"":""Test Link""," +
+                @"""description"":""Hello World""," +
+                @"""multiple"":true}"
             );
         }
 

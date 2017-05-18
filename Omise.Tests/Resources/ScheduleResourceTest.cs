@@ -43,9 +43,31 @@ namespace Omise.Tests.Resources
         [Test]
         public void CreateScheduleRequest()
         {
+            /*Every = 1,
+                Period = SchedulePeriod.Week,
+                On = new ScheduleOnRequest
+				{
+					Weekdays = new[] { Weekdays.Friday },
+				},
+                EndDate = DateTime.
+                Charge = new ChargeScheduling
+				{
+					Amount = 3333,
+					Currency = "thb",
+					Customer = CustomerId,
+				}
+                */
+
             AssertSerializedRequest(
                 BuildCreateRequest(),
-                "customer=x"
+                @"{""every"":1," +
+                @"""period"":""week""," +
+                @"""on"":{""weekdays"":[""friday""]}," +
+                @"""end_date"":""2099-02-01T19:54:00""," +
+                @"""charge"":{" +
+                @"""amount"":3333," +
+                @"""currency"":""thb""," +
+                @"""customer"":""cust_test_57weukrimynz11hwz77""}}"
             );
         }
 
@@ -59,7 +81,7 @@ namespace Omise.Tests.Resources
                 {
                     Weekdays = new[] { Weekdays.Friday },
                 },
-                EndDate = DateTime.Now.AddYears(10),
+                EndDate = new DateTime(2099, 2, 1, 19, 54, 00),
                 Charge = new ChargeScheduling
                 {
                     Amount = 3333,

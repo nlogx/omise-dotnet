@@ -55,20 +55,22 @@ namespace Omise.Tests.Resources
         [Test]
         public void TestCreateCustomerRequest()
         {
-            AssertSerializedRequest(BuildCreateRequest(),
-                "email=support%40omise.co&" +
-                "description=Omise+support&" +
-                "card=card_test_123"
+            AssertSerializedRequest(
+                BuildCreateRequest(),
+                @"{""email"":""support@omise.co""," +
+                @"""description"":""Omise support""," +
+                @"""card"":""card_test_123""}"
             );
         }
 
         [Test]
         public void TestUpdateCustomerRequest()
         {
-            AssertSerializedRequest(BuildUpdateRequest(),
-                "email=example%40omise.co&" +
-                "description=Omise+example&" +
-                "card=card_test_456"
+            AssertSerializedRequest(
+                BuildUpdateRequest(),
+                @"{""email"":""example@omise.co""," +
+                @"""description"":""Omise example""," +
+                @"""card"":""card_test_456""}"
             );
         }
 

@@ -69,23 +69,25 @@ namespace Omise.Tests.Resources
         [Test]
         public void TestCreateChargeRequest()
         {
-            AssertSerializedRequest(BuildCreateRequest(),
-                "customer=Omise+Co.%2C+Ltd.&" +
-                "card=card_test_123&" +
-                "amount=244884&" +
-                "currency=thb&" +
-                "description=Test+Charge&" +
-                "capture=false&" +
-                "offsite=internet_banking_bay&" +
-                "return_uri=asdf"
+            AssertSerializedRequest(
+                BuildCreateRequest(),
+                @"{""customer"":""Omise Co., Ltd.""," +
+                @"""card"":""card_test_123""," +
+                @"""amount"":244884," +
+                @"""currency"":""thb""," +
+                @"""description"":""Test Charge""," +
+                @"""capture"":false," +
+                @"""offsite"":""internet_banking_bay""," +
+                @"""return_uri"":""asdf""}"
             );
         }
 
         [Test]
         public void TestUpdateChargeRequest()
         {
-            AssertSerializedRequest(BuildUpdateRequest(),
-                "description=Charge+was+for+testing."
+            AssertSerializedRequest(
+                BuildUpdateRequest(),
+                @"{""description"":""Charge was for testing.""}"
             );
         }
 

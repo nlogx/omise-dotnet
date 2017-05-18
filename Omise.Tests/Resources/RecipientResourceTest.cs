@@ -48,30 +48,34 @@ namespace Omise.Tests.Resources
         [Test]
         public void TestCreateRecipientRequest()
         {
-            AssertSerializedRequest(BuildCreateRequest(),
-                "name=John+Doe&" +
-                "email=john.doe%40example.com&" +
-                "description=Waaat%3F&" +
-                "type=corporation&" +
-                "tax_id=123&" +
-                "bank_account%5Bbrand%5D=KBank&" +
-                "bank_account%5Bnumber%5D=1234-567-89-0&" +
-                "bank_account%5Bname%5D=Secret+Stash"
+            AssertSerializedRequest(
+                BuildCreateRequest(),
+                @"{""name"":""John Doe""," +
+                @"""email"":""john.doe@example.com""," +
+                @"""description"":""Waaat?""," +
+                @"""type"":""corporation""," +
+                @"""tax_id"":""123""," +
+                @"""bank_account"":{" +
+                @"""brand"":""KBank""," +
+                @"""number"":""1234-567-89-0""," +
+                @"""name"":""Secret Stash""}}"
             );
         }
 
         [Test]
         public void TestUpdateRecipientRequest()
         {
-            AssertSerializedRequest(BuildUpdateRequest(),
-                "name=John+Doe&" +
-                "email=john.doe%40example.com&" +
-                "description=I%27m+up-to-date&" +
-                "type=individual&" +
-                "tax_id=456&" +
-                "bank_account%5Bbrand%5D=BBL&" +
-                "bank_account%5Bnumber%5D=987654321&" +
-                "bank_account%5Bname%5D=Accounts"
+            AssertSerializedRequest(
+                BuildUpdateRequest(),
+                @"{""name"":""John Doe""," +
+                @"""email"":""john.doe@example.com""," +
+                @"""description"":""I'm up-to-date""," +
+                @"""type"":""individual""," +
+                @"""tax_id"":""456""," +
+                @"""bank_account"":{" +
+                @"""brand"":""BBL""," +
+                @"""number"":""987654321""," +
+                @"""name"":""Accounts""}}"
             );
         }
 

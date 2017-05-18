@@ -35,8 +35,10 @@ namespace Omise.Tests.Resources
         [Test]
         public void TestCreateRefundRequest()
         {
-            AssertSerializedRequest(BuildCreateRequest(),
-                "amount=300000&void=false"
+            AssertSerializedRequest(
+                BuildCreateRequest(),
+                @"{""amount"":300000," +
+                @"""void"":false}"
             );
         }
 

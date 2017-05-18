@@ -48,17 +48,19 @@ namespace Omise.Tests.Resources
         [Test]
         public void TestCreateTransferRequest()
         {
-            AssertSerializedRequest(BuildCreateRequest(),
-                "amount=300000&" +
-                "recipient=recp_test_123"
+            AssertSerializedRequest(
+                BuildCreateRequest(),
+                @"{""amount"":300000," +
+                @"""recipient"":""recp_test_123""}"
             );
         }
 
         [Test]
         public void TestUpdateTransferRequest()
         {
-            AssertSerializedRequest(BuildUpdateRequest(),
-                "amount=24488442"
+            AssertSerializedRequest(
+                BuildUpdateRequest(),
+                @"{""amount"":24488442}"
             );
         }
 
