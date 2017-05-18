@@ -43,21 +43,6 @@ namespace Omise.Tests.Resources
         [Test]
         public void CreateScheduleRequest()
         {
-            /*Every = 1,
-                Period = SchedulePeriod.Week,
-                On = new ScheduleOnRequest
-				{
-					Weekdays = new[] { Weekdays.Friday },
-				},
-                EndDate = DateTime.
-                Charge = new ChargeScheduling
-				{
-					Amount = 3333,
-					Currency = "thb",
-					Customer = CustomerId,
-				}
-                */
-
             AssertSerializedRequest(
                 BuildCreateRequest(),
                 @"{""every"":1," +
